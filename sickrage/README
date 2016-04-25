@@ -7,6 +7,7 @@ qualities you want.
 
 Homepage: https://sickrage.github.io/
 
-NOTE: Requires sickrage user and group. (uid/gid temporary until assigned by SBo)
- groupadd -g 999 sickrage
- useradd -u 999 -g sickrage -d /var/lib/sickrage -s /bin/false sickrage
+NOTE: Requires sickrage user and group.
+(uid/gid assigned by SBo -- see https://slackbuilds.org/uid_gid.txt)
+ groupadd -g 324 sickrage
+ useradd -u 324 -g sickrage -d /var/lib/sickrage -s /bin/false sickrage
