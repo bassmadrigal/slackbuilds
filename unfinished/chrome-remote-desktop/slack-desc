@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+                     |-----handy-ruler------------------------------------------------------|
+chrome-remote-desktop: chrome-remote-desktop (Access computer remotely via Chrome)
+chrome-remote-desktop:
+chrome-remote-desktop: Allows you to securely access your computer over the Internet through
+chrome-remote-desktop: Chrome. Chrome Remote Desktop allows users to remotely access another 
+chrome-remote-desktop: computer through Chrome browser or a Chromebook.  Computers can be 
+chrome-remote-desktop: made available on an short-term basis for scenarios such as ad hoc 
+chrome-remote-desktop: remote support, or on a more long-term basis for remote access to 
+chrome-remote-desktop: your applications and files.  All connections are fully secured.
+chrome-remote-desktop: 
+chrome-remote-desktop: 
+chrome-remote-desktop:

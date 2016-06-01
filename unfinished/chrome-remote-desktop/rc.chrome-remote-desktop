@@ -1,0 +1,104 @@
+#!/bin/bash
+#
+# /etc/rc.d/rc.chrome-remote-desktop
+#
+# Start/stop/restart the Chrome Remote Desktop Daemon
+#
+# To make Chrome Remote Desktop Daemon start automatically at boot, make this
+# file executable:  chmod 755 /etc/rc.d/rc.chrome-remote-desktop
+# Also, add this line in your /etc/rc.d/rc.local:
+#
+# if [ -x /etc/rc.d/rc.chrome-remote-desktop ]; then
+#        /etc/rc.d/rc.chrome-remote-desktop start
+# fi
+#
+
+# Must be run as root or you'll get crazy password prompts
+if [ $UID != "0" ]; then
+  echo "This script must be run as root" 1>&2
+  exit 1
+fi
+
+# Set host path and check that it's executable
+HOST_PATH=/opt/google/chrome-remote-desktop/chrome-remote-desktop
+test -x $HOST_PATH || exit 0
+
+# Set default chrome-remote-desktop group
+CHROME_REMOTING_GROUP=chrome-remote-desktop
+
+# Extract list of users in the chrome-remote-desktop group.
+#USERS=$(getent group $CHROME_REMOTING_GROUP |
+#  awk -F ':' '{ gsub(",", " ", $4); print $4 }')
+USERS=jbhansen
+echo $USERS
+
+run_with_timeout() {
+  "$@" &
+  pid=$!
+  local time_left=10
+  while [ $time_left -gt 0 ]; do
+    (kill -0 $pid 2>/dev/null) || return `wait $pid`
+    sleep 1
+    time_left=$((time_left - 1))
+  done
+  (kill -0 $pid 2>/dev/null) || return `wait $pid`
+
+  echo command \"$@\" has timed out >&2
+  kill $pid
+  return 1
+}
+
+do_start() {
+  echo -n "Starting Chrome Remote Desktop host for $1... "
+  su -c "$HOST_PATH --start" $1
+  echo "done" $?
+}
+
+do_stop() {
+  echo -n "Stopping Chrome Remote Desktop host for $1... "
+  run_with_timeout
+  su $1 -c "$HOST_PATH --stop"
+  echo "done" $?
+}
+
+do_reload() {
+  echo -n "Reloading Chrome Remote Desktop host configuration for $1... "
+  su $1 -c "$HOST_PATH --reload"
+  echo "done" $?
+}
+
+do_restart() {
+  echo -n "Restarting Chrome Remote Desktop host for $1... "
+  run_with_timeout
+  su $1 -c "$HOST_PATH --stop"
+  su $1 -c "$HOST_PATH --start"
+  echo "done" $?
+}
+
+for_each_user() {
+  for user in $USERS; do
+    $1 $user
+  done
+}
+
+case "$1" in
+  start)
+    for_each_user do_start
+    ;;
+
+  stop)
+    for_each_user do_stop
+    ;;
+
+  reload|force-reload)
+    for_each_user do_reload
+    ;;
+
+  restart)
+    for_each_user do_restart
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop|reload|restart}"
+    exit 1
+esac
