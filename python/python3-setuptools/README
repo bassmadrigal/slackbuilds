@@ -1,0 +1,11 @@
+python3-setuptools (a collection of enhancements to Python distutils)
+
+This is a full featured library designed to facilitate packaging
+Python projects.  Features include Python package and module
+definitions, distribution package metadata, test hooks, project
+installation, and platform-specific details.
+
+Homepage: https://pypi.python.org/pypi/setuptools
+
+This builds the python3 version of setuptools. It is safe to install
+on a system that has Slackware's python-setuptools package installed.

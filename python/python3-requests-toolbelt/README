@@ -1,5 +1,6 @@
-SQLAlchemy (The Python SQL Toolkit and Object Relational Mapper)
+python3-requests-toolbelt (additional python "requests" ultilities)
 
-SQLAlchemy is the Python SQL toolkit and Object Relational Mapper
-that gives application developers the full power and
-flexibility of SQL.
+This is just a collection of utilities for python-requests,
+but don't really belong in requests proper.
+
+Homepage: https://github.com/sigmavirus24/requests-toolbelt

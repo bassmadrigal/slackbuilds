@@ -1,5 +1,10 @@
-SQLAlchemy (The Python SQL Toolkit and Object Relational Mapper)
+python3-SQLAlchemy (The Python SQL Toolkit and Object Relational Mapper)
 
-SQLAlchemy is the Python SQL toolkit and Object Relational Mapper
+python3-SQLAlchemy is the Python SQL toolkit and Object Relational Mapper
 that gives application developers the full power and
 flexibility of SQL.
+
+Homepage: http://www.sqlalchemy.org/
+
+This builds the python3 version of SQLAlchemy. It is safe to install
+this on a system that has SBo's SQLAlchemy (python2) package installed.

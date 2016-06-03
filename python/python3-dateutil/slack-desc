@@ -13,7 +13,7 @@ python3-dateutil: datetime module.
 python3-dateutil:
 python3-dateutil: Hompage: http://labix.org/python-dateutil
 python3-dateutil:
-python3-dateutil: This builds the python3 version of SQLAlchemy. It is safe to install
+python3-dateutil: This builds the python3 version of dateutil. It is safe to install
 python3-dateutil: this on a system that has SBo's python-dateutil (python2) package
 python3-dateutil: installed.
 python3-dateutil:
