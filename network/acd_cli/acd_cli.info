@@ -5,6 +5,6 @@ DOWNLOAD="https://github.com/yadayada/acd_cli/archive/0.3.1/acd_cli-0.3.1.tar.gz
 MD5SUM="77f3e09581320bd4db8a1c5802913d03"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
-REQUIRES="python3,colorama,python-requests,python3-SQLAlchemy,python3-dateutil,python3-requests-toolbelt,python3-setuptools,six,python3-appdirs"
+REQUIRES="python3 python3-SQLAlchemy python3-requests-toolbelt python-requests python3-setuptools python3-dateutil colorama python3-appdirs six"
 MAINTAINER="Jeremy Hansen"
 EMAIL="jebrhansen+SBo -at- gmail.com"
