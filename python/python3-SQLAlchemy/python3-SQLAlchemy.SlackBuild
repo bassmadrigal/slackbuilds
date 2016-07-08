@@ -28,7 +28,7 @@ PRGNAM=python3-SQLAlchemy
 SRCNAM=SQLAlchemy
 VERSION=${VERSION:-1.0.12}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_bass}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
