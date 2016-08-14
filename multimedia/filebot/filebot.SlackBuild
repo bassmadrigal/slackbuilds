@@ -23,7 +23,6 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=filebot
-#SRCNAM=FileBot
 VERSION=${VERSION:-4.7.2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_bass}
@@ -54,13 +53,6 @@ fi
 
 set -eu
 
-# Get the real version
-#REAL_VER=$(ar p ${PRGNAM}_$VERSION_${DEBARCH}.deb control.tar.gz | tar xzO ./control | grep Version | cut -d\  -f2 | cut -d- -f1)
-#if [ "$VERSION" != "$REAL_VER" ]; then
-#  echo "Version of downloaded source [$REAL_VER] does not match version of SlackBuild [$VERSION]"
-#  exit 1
-#fi
-
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
@@ -84,7 +76,6 @@ install -m 0755 $CWD/filebot.bin $PKG/usr/bin/filebot
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-#cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
