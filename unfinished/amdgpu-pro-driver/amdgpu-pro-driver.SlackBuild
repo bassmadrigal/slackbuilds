@@ -59,11 +59,11 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM
-tar -xvf $SRCNAM_$SRCVER.tar.xz
+tar -xvf $CWD/${SRCNAM}_${SRCVER}.tar.xz
 cd $PKG
 
-for i in /$TMP/$PRGNAM/*_{$DEBARCH,all}.deb; do
-  ar p $i data.tar.gz | unxz | tar xv
+for i in $TMP/$PRGNAM/*_{$DEBARCH,all}.deb; do
+  ar p $i data.tar.xz | unxz | tar xv
 done
 
 chown -R root:root .
@@ -78,8 +78,9 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/ 
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-  
-  cat << EOF > $PKG/install/slack-desc
+
+mkdir -p $PKG/install/  
+cat << EOF > $PKG/install/slack-desc
 # HOW TO EDIT THIS FILE:
 # The "handy ruler" below makes it easier to edit a package description.
 # Line up the first '|' above the ':' following the base package name, and
