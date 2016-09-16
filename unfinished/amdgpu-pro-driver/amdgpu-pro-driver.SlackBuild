@@ -22,6 +22,11 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+# To download the driver without visiting their webpage and manually accepting
+# their terms, run the command below. This is only in this SlackBuild temporarily
+# to aid in testing.
+# wget --referer http://support.amd.com/en-us/kb-articles/Pages/AMDGPU-PRO-Beta-Driver-for-Vulkan-Release-Notes.aspx -N https://www2.ati.com/drivers/linux/amdgpu-pro_16.30.3-315407.tar.xz
+
 PRGNAM=amdgpu-pro-driver
 SRCNAM=amdgpu-pro
 VERSION=${VERSION:-16.30.3_315407}
