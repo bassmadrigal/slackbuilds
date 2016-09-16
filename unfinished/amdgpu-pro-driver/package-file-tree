@@ -1,0 +1,1299 @@
+.
+|-- etc
+|   |-- OpenCL
+|   |   `-- vendors
+|   |       `-- amdocl64.icd
+|   |-- amd
+|   |   |-- amdapfxx.blb
+|   |   `-- amdrc
+|   |-- gbm
+|   |   `-- gbm.conf
+|   `-- vulkan
+|       `-- icd.d
+|           `-- amd_icd64.json
+|-- install
+|   |-- doinst.sh
+|   `-- slack-desc
+|-- lib
+|   |-- amdgpu-pro
+|   |   |-- ld.conf
+|   |   `-- modprobe.conf
+|   `-- firmware
+|       |-- amdgpu
+|       |   |-- amur_ce.bin
+|       |   |-- amur_me.bin
+|       |   |-- amur_mec.bin
+|       |   |-- amur_pfp.bin
+|       |   |-- amur_rlc.bin
+|       |   |-- amur_sdma.bin
+|       |   |-- carrizo_ce.bin
+|       |   |-- carrizo_me.bin
+|       |   |-- carrizo_mec.bin
+|       |   |-- carrizo_mec2.bin
+|       |   |-- carrizo_pfp.bin
+|       |   |-- carrizo_rlc.bin
+|       |   |-- carrizo_sdma.bin
+|       |   |-- carrizo_sdma1.bin
+|       |   |-- carrizo_uvd.bin
+|       |   |-- carrizo_vce.bin
+|       |   |-- fiji_ce.bin
+|       |   |-- fiji_mc.bin
+|       |   |-- fiji_me.bin
+|       |   |-- fiji_mec.bin
+|       |   |-- fiji_mec2.bin
+|       |   |-- fiji_pfp.bin
+|       |   |-- fiji_rlc.bin
+|       |   |-- fiji_sdma.bin
+|       |   |-- fiji_sdma1.bin
+|       |   |-- fiji_smc.bin
+|       |   |-- fiji_uvd.bin
+|       |   |-- fiji_vce.bin
+|       |   |-- polaris10_ce.bin
+|       |   |-- polaris10_mc.bin
+|       |   |-- polaris10_me.bin
+|       |   |-- polaris10_mec.bin
+|       |   |-- polaris10_mec2.bin
+|       |   |-- polaris10_pfp.bin
+|       |   |-- polaris10_rlc.bin
+|       |   |-- polaris10_sdma.bin
+|       |   |-- polaris10_sdma1.bin
+|       |   |-- polaris10_smc.bin
+|       |   |-- polaris10_smc_sk.bin
+|       |   |-- polaris10_uvd.bin
+|       |   |-- polaris10_vce.bin
+|       |   |-- polaris11_ce.bin
+|       |   |-- polaris11_mc.bin
+|       |   |-- polaris11_me.bin
+|       |   |-- polaris11_mec.bin
+|       |   |-- polaris11_mec2.bin
+|       |   |-- polaris11_pfp.bin
+|       |   |-- polaris11_rlc.bin
+|       |   |-- polaris11_sdma.bin
+|       |   |-- polaris11_sdma1.bin
+|       |   |-- polaris11_smc.bin
+|       |   |-- polaris11_smc_sk.bin
+|       |   |-- polaris11_uvd.bin
+|       |   |-- polaris11_vce.bin
+|       |   |-- stoney_ce.bin
+|       |   |-- stoney_me.bin
+|       |   |-- stoney_mec.bin
+|       |   |-- stoney_pfp.bin
+|       |   |-- stoney_rlc.bin
+|       |   |-- stoney_sdma.bin
+|       |   |-- stoney_uvd.bin
+|       |   |-- stoney_vce.bin
+|       |   |-- tonga_ce.bin
+|       |   |-- tonga_mc.bin
+|       |   |-- tonga_me.bin
+|       |   |-- tonga_mec.bin
+|       |   |-- tonga_mec2.bin
+|       |   |-- tonga_pfp.bin
+|       |   |-- tonga_rlc.bin
+|       |   |-- tonga_sdma.bin
+|       |   |-- tonga_sdma1.bin
+|       |   |-- tonga_smc.bin
+|       |   |-- tonga_uvd.bin
+|       |   |-- tonga_vce.bin
+|       |   |-- topaz_ce.bin
+|       |   |-- topaz_mc.bin
+|       |   |-- topaz_me.bin
+|       |   |-- topaz_mec.bin
+|       |   |-- topaz_mec2.bin
+|       |   |-- topaz_pfp.bin
+|       |   |-- topaz_rlc.bin
+|       |   |-- topaz_sdma.bin
+|       |   |-- topaz_sdma1.bin
+|       |   `-- topaz_smc.bin
+|       `-- radeon
+|           |-- bonaire_ce.bin
+|           |-- bonaire_k_smc.bin
+|           |-- bonaire_mc.bin
+|           |-- bonaire_me.bin
+|           |-- bonaire_mec.bin
+|           |-- bonaire_pfp.bin
+|           |-- bonaire_rlc.bin
+|           |-- bonaire_sdma.bin
+|           |-- bonaire_sdma1.bin
+|           |-- bonaire_smc.bin
+|           |-- bonaire_uvd.bin
+|           |-- bonaire_vce.bin
+|           |-- hawaii_ce.bin
+|           |-- hawaii_k_smc.bin
+|           |-- hawaii_mc.bin
+|           |-- hawaii_me.bin
+|           |-- hawaii_mec.bin
+|           |-- hawaii_pfp.bin
+|           |-- hawaii_rlc.bin
+|           |-- hawaii_sdma.bin
+|           |-- hawaii_sdma1.bin
+|           |-- hawaii_smc.bin
+|           |-- hawaii_uvd.bin
+|           |-- hawaii_vce.bin
+|           |-- kabini_ce.bin
+|           |-- kabini_me.bin
+|           |-- kabini_mec.bin
+|           |-- kabini_pfp.bin
+|           |-- kabini_rlc.bin
+|           |-- kabini_sdma.bin
+|           |-- kabini_sdma1.bin
+|           |-- kabini_uvd.bin
+|           |-- kabini_vce.bin
+|           |-- kaveri_ce.bin
+|           |-- kaveri_me.bin
+|           |-- kaveri_mec.bin
+|           |-- kaveri_mec2.bin
+|           |-- kaveri_pfp.bin
+|           |-- kaveri_rlc.bin
+|           |-- kaveri_sdma.bin
+|           |-- kaveri_sdma1.bin
+|           |-- kaveri_uvd.bin
+|           |-- kaveri_vce.bin
+|           |-- mullins_ce.bin
+|           |-- mullins_me.bin
+|           |-- mullins_mec.bin
+|           |-- mullins_pfp.bin
+|           |-- mullins_rlc.bin
+|           |-- mullins_sdma.bin
+|           |-- mullins_sdma1.bin
+|           |-- mullins_uvd.bin
+|           `-- mullins_vce.bin
+`-- usr
+    |-- bin
+    |   |-- amdgpu_test
+    |   |-- clinfo
+    |   |-- kmstest
+    |   |-- modeprint
+    |   |-- modetest
+    |   |-- proptest
+    |   `-- vbltest
+    |-- doc
+    |   `-- amdgpu-pro-driver-16.30.3_315407
+    |       `-- amdgpu-pro-driver.SlackBuild
+    |-- include
+    |   `-- amdgpu-pro
+    |       |-- libdrm
+    |       |   |-- amdgpu.h
+    |       |   |-- amdgpu_drm.h
+    |       |   |-- drm.h
+    |       |   |-- drm_fourcc.h
+    |       |   |-- drm_mode.h
+    |       |   |-- drm_sarea.h
+    |       |   |-- i915_drm.h
+    |       |   |-- mach64_drm.h
+    |       |   |-- mga_drm.h
+    |       |   |-- nouveau
+    |       |   |   |-- nouveau.h
+    |       |   |   `-- nvif
+    |       |   |       |-- cl0080.h
+    |       |   |       |-- cl9097.h
+    |       |   |       |-- class.h
+    |       |   |       |-- if0002.h
+    |       |   |       |-- if0003.h
+    |       |   |       |-- ioctl.h
+    |       |   |       `-- unpack.h
+    |       |   |-- nouveau_drm.h
+    |       |   |-- qxl_drm.h
+    |       |   |-- r128_drm.h
+    |       |   |-- r600_pci_ids.h
+    |       |   |-- radeon_bo.h
+    |       |   |-- radeon_bo_gem.h
+    |       |   |-- radeon_bo_int.h
+    |       |   |-- radeon_cs.h
+    |       |   |-- radeon_cs_gem.h
+    |       |   |-- radeon_cs_int.h
+    |       |   |-- radeon_drm.h
+    |       |   |-- radeon_surface.h
+    |       |   |-- savage_drm.h
+    |       |   |-- sis_drm.h
+    |       |   |-- tegra_drm.h
+    |       |   |-- vc4_drm.h
+    |       |   |-- via_drm.h
+    |       |   `-- vmwgfx_drm.h
+    |       |-- libkms
+    |       |   `-- libkms.h
+    |       |-- xf86drm.h
+    |       `-- xf86drmMode.h
+    |-- lib
+    |   `-- x86_64-linux-gnu
+    |       |-- amdgpu-pro
+    |       |   |-- 1.15
+    |       |   |   `-- modules
+    |       |   |       |-- drivers
+    |       |   |       |   |-- amdgpu_drv.la
+    |       |   |       |   `-- amdgpu_drv.so
+    |       |   |       `-- extensions
+    |       |   |           `-- libglx.so
+    |       |   |-- 1.16
+    |       |   |   `-- modules
+    |       |   |       |-- drivers
+    |       |   |       |   |-- amdgpu_drv.la
+    |       |   |       |   `-- amdgpu_drv.so
+    |       |   |       `-- extensions
+    |       |   |           `-- libglx.so
+    |       |   |-- 1.17
+    |       |   |   `-- modules
+    |       |   |       |-- drivers
+    |       |   |       |   |-- amdgpu_drv.la
+    |       |   |       |   `-- amdgpu_drv.so
+    |       |   |       `-- extensions
+    |       |   |           `-- libglx.so
+    |       |   |-- 1.18
+    |       |   |   `-- modules
+    |       |   |       |-- drivers
+    |       |   |       |   |-- amdgpu_drv.la
+    |       |   |       |   `-- amdgpu_drv.so
+    |       |   |       `-- extensions
+    |       |   |           `-- libglx.so
+    |       |   |-- gbm
+    |       |   |   `-- gbm_amdgpu.so
+    |       |   |-- libEGL.so.1
+    |       |   |-- libGL.so.1.2
+    |       |   |-- libGLESv2.so.2
+    |       |   |-- libOpenCL.so.1
+    |       |   |-- libamdocl12cl64.so
+    |       |   |-- libamdocl64.so
+    |       |   |-- libdrm.la
+    |       |   |-- libdrm.so.2.4.0
+    |       |   |-- libdrm_amdgpu.la
+    |       |   |-- libdrm_amdgpu.so.1.0.0
+    |       |   |-- libgbm.so.1.0.0
+    |       |   |-- libkms.so.1.0.0
+    |       |   `-- pkgconfig
+    |       |       |-- libdrm.pc
+    |       |       |-- libdrm_amdgpu.pc
+    |       |       `-- libkms.pc
+    |       |-- amdvlk64.so
+    |       |-- dri
+    |       |   `-- amdgpu_dri.so
+    |       `-- vdpau
+    |           `-- libvdpau_amdgpu.so.1.0.0
+    |-- share
+    |   |-- X11
+    |   |   `-- xorg.conf.d
+    |   |       `-- 01-amdgpu-pro.conf
+    |   |-- amdgpu-pro
+    |   |   `-- manifest.xml
+    |   |-- amdgpu-pro-dkms
+    |   |   `-- postinst
+    |   |-- doc
+    |   |   |-- amdgpu-pro
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-clinfo
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-computing
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-core
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-dkms
+    |   |   |   |-- README.Debian
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-firmware
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-graphics
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-libopencl-dev
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-libopencl1
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-opencl-icd
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- amdgpu-pro-vulkan-driver
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libdrm-amdgpu-pro-amdgpu1
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libdrm-amdgpu-pro-dev
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libdrm-amdgpu-pro-tools
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libdrm2-amdgpu-pro
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libegl1-amdgpu-pro
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libegl1-amdgpu-pro-dev
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libgbm-amdgpu-pro-dev
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libgbm1-amdgpu-pro
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libgl1-amdgpu-pro-dev
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libgl1-amdgpu-pro-dri
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libgl1-amdgpu-pro-glx
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libgles2-amdgpu-pro
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libgles2-amdgpu-pro-dev
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   |-- libvdpau-amdgpu-pro
+    |   |   |   |-- changelog.Debian.gz
+    |   |   |   `-- copyright
+    |   |   `-- xserver-xorg-video-amdgpu-pro
+    |   |       |-- changelog.Debian.gz
+    |   |       `-- copyright
+    |   |-- initramfs-tools
+    |   |   `-- hooks
+    |   |       `-- zz_amdgpu-blacklist-radeon
+    |   `-- man
+    |       `-- amdgpu-pro.4
+    |           `-- amdgpu.4.gz
+    `-- src
+        `-- amdgpu-pro-16.30.3-315407
+            |-- Makefile
+            |-- amd
+            |   |-- acp
+            |   |   |-- Kconfig
+            |   |   |-- Makefile
+            |   |   |-- acp_hw.c
+            |   |   `-- include
+            |   |       `-- acp_gfx_if.h
+            |   |-- amdgpu
+            |   |   |-- Kconfig
+            |   |   |-- Makefile
+            |   |   |-- ObjectID.h
+            |   |   |-- amdgpu.h
+            |   |   |-- amdgpu_acp.c
+            |   |   |-- amdgpu_acp.h
+            |   |   |-- amdgpu_acpi.c
+            |   |   |-- amdgpu_afmt.c
+            |   |   |-- amdgpu_amdkfd.c
+            |   |   |-- amdgpu_amdkfd.h
+            |   |   |-- amdgpu_amdkfd_gfx_v7.c
+            |   |   |-- amdgpu_amdkfd_gfx_v8.c
+            |   |   |-- amdgpu_atombios.c
+            |   |   |-- amdgpu_atombios.h
+            |   |   |-- amdgpu_atpx_handler.c
+            |   |   |-- amdgpu_benchmark.c
+            |   |   |-- amdgpu_bios.c
+            |   |   |-- amdgpu_bo_list.c
+            |   |   |-- amdgpu_cgs.c
+            |   |   |-- amdgpu_connectors.c
+            |   |   |-- amdgpu_connectors.h
+            |   |   |-- amdgpu_cs.c
+            |   |   |-- amdgpu_ctx.c
+            |   |   |-- amdgpu_device.c
+            |   |   |-- amdgpu_display.c
+            |   |   |-- amdgpu_dpm.c
+            |   |   |-- amdgpu_dpm.h
+            |   |   |-- amdgpu_drv.c
+            |   |   |-- amdgpu_drv.h
+            |   |   |-- amdgpu_encoders.c
+            |   |   |-- amdgpu_fb.c
+            |   |   |-- amdgpu_fence.c
+            |   |   |-- amdgpu_gart.c
+            |   |   |-- amdgpu_gds.h
+            |   |   |-- amdgpu_gem.c
+            |   |   |-- amdgpu_gfx.c
+            |   |   |-- amdgpu_gfx.h
+            |   |   |-- amdgpu_i2c.c
+            |   |   |-- amdgpu_i2c.h
+            |   |   |-- amdgpu_ib.c
+            |   |   |-- amdgpu_ih.c
+            |   |   |-- amdgpu_ih.h
+            |   |   |-- amdgpu_ioc32.c
+            |   |   |-- amdgpu_irq.c
+            |   |   |-- amdgpu_irq.h
+            |   |   |-- amdgpu_job.c
+            |   |   |-- amdgpu_kms.c
+            |   |   |-- amdgpu_mn.c
+            |   |   |-- amdgpu_mode.h
+            |   |   |-- amdgpu_object.c
+            |   |   |-- amdgpu_object.h
+            |   |   |-- amdgpu_pll.c
+            |   |   |-- amdgpu_pll.h
+            |   |   |-- amdgpu_pm.c
+            |   |   |-- amdgpu_pm.h
+            |   |   |-- amdgpu_powerplay.c
+            |   |   |-- amdgpu_powerplay.h
+            |   |   |-- amdgpu_prime.c
+            |   |   |-- amdgpu_ring.c
+            |   |   |-- amdgpu_sa.c
+            |   |   |-- amdgpu_sync.c
+            |   |   |-- amdgpu_test.c
+            |   |   |-- amdgpu_trace.h
+            |   |   |-- amdgpu_trace_points.c
+            |   |   |-- amdgpu_ttm.c
+            |   |   |-- amdgpu_ucode.c
+            |   |   |-- amdgpu_ucode.h
+            |   |   |-- amdgpu_uvd.c
+            |   |   |-- amdgpu_uvd.h
+            |   |   |-- amdgpu_vce.c
+            |   |   |-- amdgpu_vce.h
+            |   |   |-- amdgpu_vm.c
+            |   |   |-- atom.c
+            |   |   |-- atom.h
+            |   |   |-- atombios_crtc.c
+            |   |   |-- atombios_crtc.h
+            |   |   |-- atombios_dp.c
+            |   |   |-- atombios_dp.h
+            |   |   |-- atombios_encoders.c
+            |   |   |-- atombios_encoders.h
+            |   |   |-- atombios_i2c.c
+            |   |   |-- atombios_i2c.h
+            |   |   |-- ci_dpm.c
+            |   |   |-- ci_dpm.h
+            |   |   |-- ci_smc.c
+            |   |   |-- cik.c
+            |   |   |-- cik.h
+            |   |   |-- cik_dpm.h
+            |   |   |-- cik_ih.c
+            |   |   |-- cik_ih.h
+            |   |   |-- cik_sdma.c
+            |   |   |-- cik_sdma.h
+            |   |   |-- cikd.h
+            |   |   |-- clearstate_ci.h
+            |   |   |-- clearstate_defs.h
+            |   |   |-- clearstate_vi.h
+            |   |   |-- cz_dpm.c
+            |   |   |-- cz_dpm.h
+            |   |   |-- cz_ih.c
+            |   |   |-- cz_ih.h
+            |   |   |-- cz_smc.c
+            |   |   |-- cz_smumgr.h
+            |   |   |-- dce_v10_0.c
+            |   |   |-- dce_v10_0.h
+            |   |   |-- dce_v11_0.c
+            |   |   |-- dce_v11_0.h
+            |   |   |-- dce_v8_0.c
+            |   |   |-- dce_v8_0.h
+            |   |   |-- fiji_dpm.c
+            |   |   |-- fiji_smc.c
+            |   |   |-- fiji_smum.h
+            |   |   |-- gfx_v7_0.c
+            |   |   |-- gfx_v7_0.h
+            |   |   |-- gfx_v8_0.c
+            |   |   |-- gfx_v8_0.h
+            |   |   |-- gmc_v7_0.c
+            |   |   |-- gmc_v7_0.h
+            |   |   |-- gmc_v8_0.c
+            |   |   |-- gmc_v8_0.h
+            |   |   |-- iceland_dpm.c
+            |   |   |-- iceland_ih.c
+            |   |   |-- iceland_ih.h
+            |   |   |-- iceland_sdma_pkt_open.h
+            |   |   |-- iceland_smc.c
+            |   |   |-- iceland_smumgr.h
+            |   |   |-- kv_dpm.c
+            |   |   |-- kv_dpm.h
+            |   |   |-- kv_smc.c
+            |   |   |-- ppsmc.h
+            |   |   |-- sdma_v2_4.c
+            |   |   |-- sdma_v2_4.h
+            |   |   |-- sdma_v3_0.c
+            |   |   |-- sdma_v3_0.h
+            |   |   |-- smu_ucode_xfer_vi.h
+            |   |   |-- tonga_dpm.c
+            |   |   |-- tonga_ih.c
+            |   |   |-- tonga_ih.h
+            |   |   |-- tonga_sdma_pkt_open.h
+            |   |   |-- tonga_smc.c
+            |   |   |-- tonga_smum.h
+            |   |   |-- uvd_v4_2.c
+            |   |   |-- uvd_v4_2.h
+            |   |   |-- uvd_v5_0.c
+            |   |   |-- uvd_v5_0.h
+            |   |   |-- uvd_v6_0.c
+            |   |   |-- uvd_v6_0.h
+            |   |   |-- vce_v2_0.c
+            |   |   |-- vce_v2_0.h
+            |   |   |-- vce_v3_0.c
+            |   |   |-- vce_v3_0.h
+            |   |   |-- vi.c
+            |   |   |-- vi.h
+            |   |   |-- vi_dpm.h
+            |   |   `-- vid.h
+            |   |-- amdkfd
+            |   |   |-- Kconfig
+            |   |   |-- Makefile
+            |   |   |-- cik_event_interrupt.c
+            |   |   |-- cik_int.h
+            |   |   |-- cik_regs.h
+            |   |   |-- kfd_chardev.c
+            |   |   |-- kfd_crat.h
+            |   |   |-- kfd_dbgdev.c
+            |   |   |-- kfd_dbgdev.h
+            |   |   |-- kfd_dbgmgr.c
+            |   |   |-- kfd_dbgmgr.h
+            |   |   |-- kfd_device.c
+            |   |   |-- kfd_device_queue_manager.c
+            |   |   |-- kfd_device_queue_manager.h
+            |   |   |-- kfd_device_queue_manager_cik.c
+            |   |   |-- kfd_device_queue_manager_vi.c
+            |   |   |-- kfd_doorbell.c
+            |   |   |-- kfd_events.c
+            |   |   |-- kfd_events.h
+            |   |   |-- kfd_flat_memory.c
+            |   |   |-- kfd_interrupt.c
+            |   |   |-- kfd_kernel_queue.c
+            |   |   |-- kfd_kernel_queue.h
+            |   |   |-- kfd_kernel_queue_cik.c
+            |   |   |-- kfd_kernel_queue_vi.c
+            |   |   |-- kfd_module.c
+            |   |   |-- kfd_mqd_manager.c
+            |   |   |-- kfd_mqd_manager.h
+            |   |   |-- kfd_mqd_manager_cik.c
+            |   |   |-- kfd_mqd_manager_vi.c
+            |   |   |-- kfd_packet_manager.c
+            |   |   |-- kfd_pasid.c
+            |   |   |-- kfd_pm4_headers.h
+            |   |   |-- kfd_pm4_headers_diq.h
+            |   |   |-- kfd_pm4_headers_vi.h
+            |   |   |-- kfd_pm4_opcodes.h
+            |   |   |-- kfd_priv.h
+            |   |   |-- kfd_process.c
+            |   |   |-- kfd_process_queue_manager.c
+            |   |   |-- kfd_queue.c
+            |   |   |-- kfd_topology.c
+            |   |   `-- kfd_topology.h
+            |   |-- backport
+            |   |   |-- Makefile
+            |   |   |-- backport.h
+            |   |   |-- include
+            |   |   |   `-- kcl
+            |   |   |       |-- kcl_acpi.h
+            |   |   |       |-- kcl_amdgpu.h
+            |   |   |       |-- kcl_device.h
+            |   |   |       |-- kcl_drm.h
+            |   |   |       |-- kcl_fence.h
+            |   |   |       |-- kcl_fs.h
+            |   |   |       |-- kcl_hwmon.h
+            |   |   |       |-- kcl_mn.h
+            |   |   |       |-- kcl_tracepoint.h
+            |   |   |       |-- kcl_ttm.h
+            |   |   |       `-- kcl_vga_switcheroo.h
+            |   |   |-- kcl_amdgpu.c
+            |   |   |-- kcl_drm.c
+            |   |   |-- kcl_fence.c
+            |   |   |-- kcl_mn.c
+            |   |   |-- kcl_ttm.c
+            |   |   |-- rhel
+            |   |   |   `-- 6.8
+            |   |   |       `-- include
+            |   |   |           `-- uapi
+            |   |   |               `-- drm
+            |   |   |                   |-- drm.h
+            |   |   |                   |-- drm_fourcc.h
+            |   |   |                   |-- drm_mode.h
+            |   |   |                   `-- drm_sarea.h
+            |   |   `-- symbols
+            |   |-- dal
+            |   |   |-- Kconfig
+            |   |   |-- Makefile
+            |   |   |-- amdgpu_dm
+            |   |   |   |-- Makefile
+            |   |   |   |-- amdgpu_dm.c
+            |   |   |   |-- amdgpu_dm.h
+            |   |   |   |-- amdgpu_dm_helpers.c
+            |   |   |   |-- amdgpu_dm_irq.c
+            |   |   |   |-- amdgpu_dm_irq.h
+            |   |   |   |-- amdgpu_dm_mst_types.c
+            |   |   |   |-- amdgpu_dm_mst_types.h
+            |   |   |   |-- amdgpu_dm_services.c
+            |   |   |   |-- amdgpu_dm_types.c
+            |   |   |   `-- amdgpu_dm_types.h
+            |   |   |-- dal_services.h
+            |   |   |-- dal_services_types.h
+            |   |   |-- dc
+            |   |   |   |-- Makefile
+            |   |   |   |-- adapter
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- adapter_service.c
+            |   |   |   |   |-- adapter_service.h
+            |   |   |   |   |-- dce110
+            |   |   |   |   |   |-- hw_ctx_adapter_service_dce110.c
+            |   |   |   |   |   `-- hw_ctx_adapter_service_dce110.h
+            |   |   |   |   |-- dce112
+            |   |   |   |   |   |-- hw_ctx_adapter_service_dce112.c
+            |   |   |   |   |   `-- hw_ctx_adapter_service_dce112.h
+            |   |   |   |   |-- dce80
+            |   |   |   |   |   |-- hw_ctx_adapter_service_dce80.c
+            |   |   |   |   |   `-- hw_ctx_adapter_service_dce80.h
+            |   |   |   |   |-- diagnostics
+            |   |   |   |   |   |-- hw_ctx_adapter_service_diag.c
+            |   |   |   |   |   `-- hw_ctx_adapter_service_diag.h
+            |   |   |   |   |-- hw_ctx_adapter_service.c
+            |   |   |   |   |-- hw_ctx_adapter_service.h
+            |   |   |   |   |-- wireless_data_source.c
+            |   |   |   |   `-- wireless_data_source.h
+            |   |   |   |-- asic_capability
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- asic_capability.c
+            |   |   |   |   |-- carrizo_asic_capability.c
+            |   |   |   |   |-- carrizo_asic_capability.h
+            |   |   |   |   |-- hawaii_asic_capability.c
+            |   |   |   |   |-- hawaii_asic_capability.h
+            |   |   |   |   |-- polaris10_asic_capability.c
+            |   |   |   |   |-- polaris10_asic_capability.h
+            |   |   |   |   |-- tonga_asic_capability.c
+            |   |   |   |   `-- tonga_asic_capability.h
+            |   |   |   |-- audio
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- audio.h
+            |   |   |   |   |-- audio_base.c
+            |   |   |   |   |-- dce110
+            |   |   |   |   |   |-- audio_dce110.c
+            |   |   |   |   |   |-- audio_dce110.h
+            |   |   |   |   |   |-- hw_ctx_audio_dce110.c
+            |   |   |   |   |   `-- hw_ctx_audio_dce110.h
+            |   |   |   |   |-- dce112
+            |   |   |   |   |   `-- hw_ctx_audio_dce112.c
+            |   |   |   |   |-- dce80
+            |   |   |   |   |   |-- audio_dce80.c
+            |   |   |   |   |   |-- audio_dce80.h
+            |   |   |   |   |   |-- hw_ctx_audio_dce80.c
+            |   |   |   |   |   `-- hw_ctx_audio_dce80.h
+            |   |   |   |   |-- hw_ctx_audio.c
+            |   |   |   |   `-- hw_ctx_audio.h
+            |   |   |   |-- basics
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- conversion.c
+            |   |   |   |   |-- conversion.h
+            |   |   |   |   |-- fixpt31_32.c
+            |   |   |   |   |-- fixpt32_32.c
+            |   |   |   |   |-- grph_object_id.c
+            |   |   |   |   |-- logger.c
+            |   |   |   |   |-- logger.h
+            |   |   |   |   |-- register_logger.c
+            |   |   |   |   |-- signal_types.c
+            |   |   |   |   `-- vector.c
+            |   |   |   |-- bios
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- bios_parser.c
+            |   |   |   |   |-- bios_parser.h
+            |   |   |   |   |-- bios_parser_helper.c
+            |   |   |   |   |-- bios_parser_helper.h
+            |   |   |   |   |-- command_table.c
+            |   |   |   |   |-- command_table.h
+            |   |   |   |   |-- command_table_helper.c
+            |   |   |   |   |-- command_table_helper.h
+            |   |   |   |   |-- dce110
+            |   |   |   |   |   |-- bios_parser_helper_dce110.c
+            |   |   |   |   |   |-- bios_parser_helper_dce110.h
+            |   |   |   |   |   |-- command_table_helper_dce110.c
+            |   |   |   |   |   `-- command_table_helper_dce110.h
+            |   |   |   |   |-- dce112
+            |   |   |   |   |   |-- bios_parser_helper_dce112.c
+            |   |   |   |   |   |-- bios_parser_helper_dce112.h
+            |   |   |   |   |   |-- command_table_helper_dce112.c
+            |   |   |   |   |   `-- command_table_helper_dce112.h
+            |   |   |   |   `-- dce80
+            |   |   |   |       |-- bios_parser_helper_dce80.c
+            |   |   |   |       |-- bios_parser_helper_dce80.h
+            |   |   |   |       |-- command_table_helper_dce80.c
+            |   |   |   |       `-- command_table_helper_dce80.h
+            |   |   |   |-- calcs
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- bandwidth_calcs.c
+            |   |   |   |   |-- bw_fixed.c
+            |   |   |   |   |-- gamma_calcs.c
+            |   |   |   |   |-- scaler_filter.c
+            |   |   |   |   `-- scaler_filter.h
+            |   |   |   |-- core
+            |   |   |   |   |-- dc.c
+            |   |   |   |   |-- dc_hw_sequencer.c
+            |   |   |   |   |-- dc_link.c
+            |   |   |   |   |-- dc_link_ddc.c
+            |   |   |   |   |-- dc_link_dp.c
+            |   |   |   |   |-- dc_link_hwss.c
+            |   |   |   |   |-- dc_resource.c
+            |   |   |   |   |-- dc_sink.c
+            |   |   |   |   |-- dc_stream.c
+            |   |   |   |   |-- dc_surface.c
+            |   |   |   |   `-- dc_target.c
+            |   |   |   |-- dc.h
+            |   |   |   |-- dc_bios_types.h
+            |   |   |   |-- dc_ddc_types.h
+            |   |   |   |-- dc_dp_types.h
+            |   |   |   |-- dc_hw_types.h
+            |   |   |   |-- dc_types.h
+            |   |   |   |-- dce100
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- dce100_hw_sequencer.c
+            |   |   |   |   |-- dce100_hw_sequencer.h
+            |   |   |   |   |-- dce100_link_encoder.c
+            |   |   |   |   |-- dce100_link_encoder.h
+            |   |   |   |   |-- dce100_resource.c
+            |   |   |   |   `-- dce100_resource.h
+            |   |   |   |-- dce110
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- dce110_clock_source.c
+            |   |   |   |   |-- dce110_clock_source.h
+            |   |   |   |   |-- dce110_compressor.c
+            |   |   |   |   |-- dce110_compressor.h
+            |   |   |   |   |-- dce110_hw_sequencer.c
+            |   |   |   |   |-- dce110_hw_sequencer.h
+            |   |   |   |   |-- dce110_ipp.c
+            |   |   |   |   |-- dce110_ipp.h
+            |   |   |   |   |-- dce110_ipp_cursor.c
+            |   |   |   |   |-- dce110_ipp_gamma.c
+            |   |   |   |   |-- dce110_link_encoder.c
+            |   |   |   |   |-- dce110_link_encoder.h
+            |   |   |   |   |-- dce110_mem_input.c
+            |   |   |   |   |-- dce110_mem_input.h
+            |   |   |   |   |-- dce110_mem_input_v.c
+            |   |   |   |   |-- dce110_mem_input_v.h
+            |   |   |   |   |-- dce110_opp.c
+            |   |   |   |   |-- dce110_opp.h
+            |   |   |   |   |-- dce110_opp_csc.c
+            |   |   |   |   |-- dce110_opp_csc_v.c
+            |   |   |   |   |-- dce110_opp_formatter.c
+            |   |   |   |   |-- dce110_opp_regamma.c
+            |   |   |   |   |-- dce110_opp_regamma_v.c
+            |   |   |   |   |-- dce110_opp_v.c
+            |   |   |   |   |-- dce110_opp_v.h
+            |   |   |   |   |-- dce110_resource.c
+            |   |   |   |   |-- dce110_resource.h
+            |   |   |   |   |-- dce110_stream_encoder.c
+            |   |   |   |   |-- dce110_stream_encoder.h
+            |   |   |   |   |-- dce110_timing_generator.c
+            |   |   |   |   |-- dce110_timing_generator.h
+            |   |   |   |   |-- dce110_timing_generator_v.c
+            |   |   |   |   |-- dce110_timing_generator_v.h
+            |   |   |   |   |-- dce110_transform.c
+            |   |   |   |   |-- dce110_transform.h
+            |   |   |   |   |-- dce110_transform_bit_depth.c
+            |   |   |   |   |-- dce110_transform_bit_depth.h
+            |   |   |   |   |-- dce110_transform_gamut.c
+            |   |   |   |   |-- dce110_transform_scl.c
+            |   |   |   |   |-- dce110_transform_v.c
+            |   |   |   |   |-- dce110_transform_v.h
+            |   |   |   |   `-- dce110_types.h
+            |   |   |   |-- dce112
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- dce112_clock_source.c
+            |   |   |   |   |-- dce112_clock_source.h
+            |   |   |   |   |-- dce112_compressor.c
+            |   |   |   |   |-- dce112_compressor.h
+            |   |   |   |   |-- dce112_hw_sequencer.c
+            |   |   |   |   |-- dce112_hw_sequencer.h
+            |   |   |   |   |-- dce112_link_encoder.c
+            |   |   |   |   |-- dce112_link_encoder.h
+            |   |   |   |   |-- dce112_mem_input.c
+            |   |   |   |   |-- dce112_mem_input.h
+            |   |   |   |   |-- dce112_opp.c
+            |   |   |   |   |-- dce112_opp.h
+            |   |   |   |   |-- dce112_opp_formatter.c
+            |   |   |   |   |-- dce112_resource.c
+            |   |   |   |   `-- dce112_resource.h
+            |   |   |   |-- dce80
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- dce80_compressor.c
+            |   |   |   |   |-- dce80_compressor.h
+            |   |   |   |   |-- dce80_hw_sequencer.c
+            |   |   |   |   |-- dce80_hw_sequencer.h
+            |   |   |   |   |-- dce80_ipp.c
+            |   |   |   |   |-- dce80_ipp.h
+            |   |   |   |   |-- dce80_ipp_gamma.c
+            |   |   |   |   |-- dce80_link_encoder.c
+            |   |   |   |   |-- dce80_link_encoder.h
+            |   |   |   |   |-- dce80_mem_input.c
+            |   |   |   |   |-- dce80_mem_input.h
+            |   |   |   |   |-- dce80_opp.c
+            |   |   |   |   |-- dce80_opp.h
+            |   |   |   |   |-- dce80_opp_csc.c
+            |   |   |   |   |-- dce80_opp_formatter.c
+            |   |   |   |   |-- dce80_opp_regamma.c
+            |   |   |   |   |-- dce80_resource.c
+            |   |   |   |   |-- dce80_resource.h
+            |   |   |   |   |-- dce80_stream_encoder.c
+            |   |   |   |   |-- dce80_stream_encoder.h
+            |   |   |   |   |-- dce80_timing_generator.c
+            |   |   |   |   |-- dce80_timing_generator.h
+            |   |   |   |   |-- dce80_transform.c
+            |   |   |   |   |-- dce80_transform.h
+            |   |   |   |   |-- dce80_transform_bit_depth.c
+            |   |   |   |   |-- dce80_transform_bit_depth.h
+            |   |   |   |   |-- dce80_transform_gamut.c
+            |   |   |   |   `-- dce80_transform_scl.c
+            |   |   |   |-- dm_helpers.h
+            |   |   |   |-- dm_services.h
+            |   |   |   |-- dm_services_types.h
+            |   |   |   |-- gpio
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- dce110
+            |   |   |   |   |   |-- hw_ddc_dce110.c
+            |   |   |   |   |   |-- hw_ddc_dce110.h
+            |   |   |   |   |   |-- hw_factory_dce110.c
+            |   |   |   |   |   |-- hw_factory_dce110.h
+            |   |   |   |   |   |-- hw_hpd_dce110.c
+            |   |   |   |   |   |-- hw_hpd_dce110.h
+            |   |   |   |   |   |-- hw_translate_dce110.c
+            |   |   |   |   |   `-- hw_translate_dce110.h
+            |   |   |   |   |-- dce80
+            |   |   |   |   |   |-- hw_ddc_dce80.c
+            |   |   |   |   |   |-- hw_ddc_dce80.h
+            |   |   |   |   |   |-- hw_factory_dce80.c
+            |   |   |   |   |   |-- hw_factory_dce80.h
+            |   |   |   |   |   |-- hw_hpd_dce80.c
+            |   |   |   |   |   |-- hw_hpd_dce80.h
+            |   |   |   |   |   |-- hw_translate_dce80.c
+            |   |   |   |   |   `-- hw_translate_dce80.h
+            |   |   |   |   |-- ddc.c
+            |   |   |   |   |-- ddc.h
+            |   |   |   |   |-- diagnostics
+            |   |   |   |   |   |-- hw_ddc_diag.c
+            |   |   |   |   |   |-- hw_ddc_diag.h
+            |   |   |   |   |   |-- hw_factory_diag.c
+            |   |   |   |   |   |-- hw_factory_diag.h
+            |   |   |   |   |   |-- hw_hpd_diag.c
+            |   |   |   |   |   |-- hw_hpd_diag.h
+            |   |   |   |   |   |-- hw_translate_diag.c
+            |   |   |   |   |   `-- hw_translate_diag.h
+            |   |   |   |   |-- gpio.h
+            |   |   |   |   |-- gpio_base.c
+            |   |   |   |   |-- gpio_service.c
+            |   |   |   |   |-- gpio_service.h
+            |   |   |   |   |-- hw_ddc.c
+            |   |   |   |   |-- hw_ddc.h
+            |   |   |   |   |-- hw_factory.c
+            |   |   |   |   |-- hw_factory.h
+            |   |   |   |   |-- hw_gpio.c
+            |   |   |   |   |-- hw_gpio.h
+            |   |   |   |   |-- hw_gpio_pad.c
+            |   |   |   |   |-- hw_gpio_pad.h
+            |   |   |   |   |-- hw_gpio_pin.c
+            |   |   |   |   |-- hw_gpio_pin.h
+            |   |   |   |   |-- hw_hpd.c
+            |   |   |   |   |-- hw_hpd.h
+            |   |   |   |   |-- hw_translate.c
+            |   |   |   |   |-- hw_translate.h
+            |   |   |   |   |-- irq.c
+            |   |   |   |   `-- irq.h
+            |   |   |   |-- gpu
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- dc_clock_generator.c
+            |   |   |   |   |-- dc_clock_generator.h
+            |   |   |   |   |-- dce110
+            |   |   |   |   |   |-- dc_clock_gating_dce110.c
+            |   |   |   |   |   |-- dc_clock_gating_dce110.h
+            |   |   |   |   |   |-- display_clock_dce110.c
+            |   |   |   |   |   `-- display_clock_dce110.h
+            |   |   |   |   |-- dce112
+            |   |   |   |   |   |-- dc_clock_gating_dce112.c
+            |   |   |   |   |   |-- dc_clock_gating_dce112.h
+            |   |   |   |   |   |-- display_clock_dce112.c
+            |   |   |   |   |   `-- display_clock_dce112.h
+            |   |   |   |   |-- dce80
+            |   |   |   |   |   |-- dc_clock_gating_dce80.c
+            |   |   |   |   |   |-- dc_clock_gating_dce80.h
+            |   |   |   |   |   |-- display_clock_dce80.c
+            |   |   |   |   |   `-- display_clock_dce80.h
+            |   |   |   |   |-- display_clock.c
+            |   |   |   |   |-- display_clock.h
+            |   |   |   |   |-- divider_range.c
+            |   |   |   |   `-- divider_range.h
+            |   |   |   |-- i2caux
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- aux_engine.c
+            |   |   |   |   |-- aux_engine.h
+            |   |   |   |   |-- dce110
+            |   |   |   |   |   |-- aux_engine_dce110.c
+            |   |   |   |   |   |-- aux_engine_dce110.h
+            |   |   |   |   |   |-- i2c_hw_engine_dce110.c
+            |   |   |   |   |   |-- i2c_hw_engine_dce110.h
+            |   |   |   |   |   |-- i2c_sw_engine_dce110.c
+            |   |   |   |   |   |-- i2c_sw_engine_dce110.h
+            |   |   |   |   |   |-- i2caux_dce110.c
+            |   |   |   |   |   `-- i2caux_dce110.h
+            |   |   |   |   |-- dce80
+            |   |   |   |   |   |-- aux_engine_dce80.c
+            |   |   |   |   |   |-- aux_engine_dce80.h
+            |   |   |   |   |   |-- i2c_hw_engine_dce80.c
+            |   |   |   |   |   |-- i2c_hw_engine_dce80.h
+            |   |   |   |   |   |-- i2c_sw_engine_dce80.c
+            |   |   |   |   |   |-- i2c_sw_engine_dce80.h
+            |   |   |   |   |   |-- i2caux_dce80.c
+            |   |   |   |   |   `-- i2caux_dce80.h
+            |   |   |   |   |-- diagnostics
+            |   |   |   |   |   |-- i2caux_diag.c
+            |   |   |   |   |   `-- i2caux_diag.h
+            |   |   |   |   |-- engine.h
+            |   |   |   |   |-- engine_base.c
+            |   |   |   |   |-- i2c_engine.c
+            |   |   |   |   |-- i2c_engine.h
+            |   |   |   |   |-- i2c_generic_hw_engine.c
+            |   |   |   |   |-- i2c_generic_hw_engine.h
+            |   |   |   |   |-- i2c_hw_engine.c
+            |   |   |   |   |-- i2c_hw_engine.h
+            |   |   |   |   |-- i2c_sw_engine.c
+            |   |   |   |   |-- i2c_sw_engine.h
+            |   |   |   |   |-- i2caux.c
+            |   |   |   |   `-- i2caux.h
+            |   |   |   |-- inc
+            |   |   |   |   |-- bandwidth_calcs.h
+            |   |   |   |   |-- bw_fixed.h
+            |   |   |   |   |-- clock_source.h
+            |   |   |   |   |-- compressor.h
+            |   |   |   |   |-- core_dc.h
+            |   |   |   |   |-- core_status.h
+            |   |   |   |   |-- core_types.h
+            |   |   |   |   |-- dc_link_ddc.h
+            |   |   |   |   |-- dc_link_dp.h
+            |   |   |   |   |-- gamma_calcs.h
+            |   |   |   |   |-- gamma_types.h
+            |   |   |   |   |-- hw
+            |   |   |   |   |   |-- hw_shared.h
+            |   |   |   |   |   |-- ipp.h
+            |   |   |   |   |   |-- link_encoder.h
+            |   |   |   |   |   |-- mem_input.h
+            |   |   |   |   |   |-- opp.h
+            |   |   |   |   |   |-- stream_encoder.h
+            |   |   |   |   |   |-- timing_generator.h
+            |   |   |   |   |   `-- transform.h
+            |   |   |   |   |-- hw_sequencer.h
+            |   |   |   |   |-- link_hwss.h
+            |   |   |   |   `-- resource.h
+            |   |   |   |-- irq
+            |   |   |   |   |-- Makefile
+            |   |   |   |   |-- dce110
+            |   |   |   |   |   |-- irq_service_dce110.c
+            |   |   |   |   |   `-- irq_service_dce110.h
+            |   |   |   |   |-- dce80
+            |   |   |   |   |   |-- irq_service_dce80.c
+            |   |   |   |   |   `-- irq_service_dce80.h
+            |   |   |   |   |-- irq_service.c
+            |   |   |   |   `-- irq_service.h
+            |   |   |   |-- irq_types.h
+            |   |   |   `-- virtual
+            |   |   |       |-- Makefile
+            |   |   |       |-- virtual_link_encoder.c
+            |   |   |       |-- virtual_link_encoder.h
+            |   |   |       |-- virtual_stream_encoder.c
+            |   |   |       `-- virtual_stream_encoder.h
+            |   |   |-- include
+            |   |   |   |-- adapter_service_interface.h
+            |   |   |   |-- adapter_service_types.h
+            |   |   |   |-- asic_capability_interface.h
+            |   |   |   |-- asic_capability_types.h
+            |   |   |   |-- audio_interface.h
+            |   |   |   |-- audio_types.h
+            |   |   |   |-- bios_parser_interface.h
+            |   |   |   |-- bios_parser_types.h
+            |   |   |   |-- dal_asic_id.h
+            |   |   |   |-- dal_register_logger.h
+            |   |   |   |-- dal_types.h
+            |   |   |   |-- dc_clock_generator_interface.h
+            |   |   |   |-- dcs_types.h
+            |   |   |   |-- ddc_interface.h
+            |   |   |   |-- ddc_service_types.h
+            |   |   |   |-- display_clock_interface.h
+            |   |   |   |-- display_path_interface.h
+            |   |   |   |-- dmcu_interface.h
+            |   |   |   |-- dmcu_types.h
+            |   |   |   |-- dpcd_defs.h
+            |   |   |   |-- encoder_interface.h
+            |   |   |   |-- fixed31_32.h
+            |   |   |   |-- fixed32_32.h
+            |   |   |   |-- gpio_interface.h
+            |   |   |   |-- gpio_service_interface.h
+            |   |   |   |-- gpio_types.h
+            |   |   |   |-- grph_object_ctrl_defs.h
+            |   |   |   |-- grph_object_defs.h
+            |   |   |   |-- grph_object_id.h
+            |   |   |   |-- hw_sequencer_interface.h
+            |   |   |   |-- hw_sequencer_types.h
+            |   |   |   |-- i2caux_interface.h
+            |   |   |   |-- irq_interface.h
+            |   |   |   |-- irq_service_interface.h
+            |   |   |   |-- link_service_interface.h
+            |   |   |   |-- link_service_types.h
+            |   |   |   |-- logger_interface.h
+            |   |   |   |-- logger_types.h
+            |   |   |   |-- scaler_types.h
+            |   |   |   |-- set_mode_types.h
+            |   |   |   |-- signal_types.h
+            |   |   |   |-- vector.h
+            |   |   |   |-- video_csc_types.h
+            |   |   |   `-- video_gamma_types.h
+            |   |   |-- modules
+            |   |   |   |-- freesync
+            |   |   |   |   `-- freesync.c
+            |   |   |   `-- inc
+            |   |   |       `-- mod_freesync.h
+            |   |   `-- utils
+            |   |       |-- bw_calc_test_harness
+            |   |       `-- vba_to_c_converter
+            |   |-- dkms
+            |   |   |-- Makefile
+            |   |   |-- dkms.conf
+            |   |   `-- pre-build.sh
+            |   |-- include
+            |   |   |-- amd_acpi.h
+            |   |   |-- amd_pcie.h
+            |   |   |-- amd_pcie_helpers.h
+            |   |   |-- amd_shared.h
+            |   |   |-- asic_reg
+            |   |   |   |-- bif
+            |   |   |   |   |-- bif_4_1_d.h
+            |   |   |   |   |-- bif_4_1_sh_mask.h
+            |   |   |   |   |-- bif_5_0_d.h
+            |   |   |   |   |-- bif_5_0_enum.h
+            |   |   |   |   |-- bif_5_0_sh_mask.h
+            |   |   |   |   |-- bif_5_1_d.h
+            |   |   |   |   |-- bif_5_1_enum.h
+            |   |   |   |   `-- bif_5_1_sh_mask.h
+            |   |   |   |-- dce
+            |   |   |   |   |-- dce_10_0_d.h
+            |   |   |   |   |-- dce_10_0_enum.h
+            |   |   |   |   |-- dce_10_0_sh_mask.h
+            |   |   |   |   |-- dce_11_0_d.h
+            |   |   |   |   |-- dce_11_0_enum.h
+            |   |   |   |   |-- dce_11_0_sh_mask.h
+            |   |   |   |   |-- dce_11_2_d.h
+            |   |   |   |   |-- dce_11_2_enum.h
+            |   |   |   |   |-- dce_11_2_sh_mask.h
+            |   |   |   |   |-- dce_8_0_d.h
+            |   |   |   |   |-- dce_8_0_enum.h
+            |   |   |   |   `-- dce_8_0_sh_mask.h
+            |   |   |   |-- gca
+            |   |   |   |   |-- gfx_7_0_d.h
+            |   |   |   |   |-- gfx_7_2_d.h
+            |   |   |   |   |-- gfx_7_2_enum.h
+            |   |   |   |   |-- gfx_7_2_sh_mask.h
+            |   |   |   |   |-- gfx_8_0_d.h
+            |   |   |   |   |-- gfx_8_0_enum.h
+            |   |   |   |   |-- gfx_8_0_sh_mask.h
+            |   |   |   |   |-- gfx_8_1_d.h
+            |   |   |   |   |-- gfx_8_1_enum.h
+            |   |   |   |   `-- gfx_8_1_sh_mask.h
+            |   |   |   |-- gmc
+            |   |   |   |   |-- gmc_7_0_d.h
+            |   |   |   |   |-- gmc_7_0_sh_mask.h
+            |   |   |   |   |-- gmc_7_1_d.h
+            |   |   |   |   |-- gmc_7_1_sh_mask.h
+            |   |   |   |   |-- gmc_8_1_d.h
+            |   |   |   |   |-- gmc_8_1_enum.h
+            |   |   |   |   |-- gmc_8_1_sh_mask.h
+            |   |   |   |   |-- gmc_8_2_d.h
+            |   |   |   |   |-- gmc_8_2_enum.h
+            |   |   |   |   `-- gmc_8_2_sh_mask.h
+            |   |   |   |-- oss
+            |   |   |   |   |-- oss_2_0_d.h
+            |   |   |   |   |-- oss_2_0_sh_mask.h
+            |   |   |   |   |-- oss_2_4_d.h
+            |   |   |   |   |-- oss_2_4_enum.h
+            |   |   |   |   |-- oss_2_4_sh_mask.h
+            |   |   |   |   |-- oss_3_0_1_d.h
+            |   |   |   |   |-- oss_3_0_1_enum.h
+            |   |   |   |   |-- oss_3_0_1_sh_mask.h
+            |   |   |   |   |-- oss_3_0_d.h
+            |   |   |   |   |-- oss_3_0_enum.h
+            |   |   |   |   `-- oss_3_0_sh_mask.h
+            |   |   |   |-- smu
+            |   |   |   |   |-- smu_7_0_0_d.h
+            |   |   |   |   |-- smu_7_0_0_sh_mask.h
+            |   |   |   |   |-- smu_7_0_1_d.h
+            |   |   |   |   |-- smu_7_0_1_sh_mask.h
+            |   |   |   |   |-- smu_7_1_0_d.h
+            |   |   |   |   |-- smu_7_1_0_enum.h
+            |   |   |   |   |-- smu_7_1_0_sh_mask.h
+            |   |   |   |   |-- smu_7_1_1_d.h
+            |   |   |   |   |-- smu_7_1_1_enum.h
+            |   |   |   |   |-- smu_7_1_1_sh_mask.h
+            |   |   |   |   |-- smu_7_1_2_d.h
+            |   |   |   |   |-- smu_7_1_2_enum.h
+            |   |   |   |   |-- smu_7_1_2_sh_mask.h
+            |   |   |   |   |-- smu_7_1_3_d.h
+            |   |   |   |   |-- smu_7_1_3_enum.h
+            |   |   |   |   |-- smu_7_1_3_sh_mask.h
+            |   |   |   |   |-- smu_8_0_d.h
+            |   |   |   |   |-- smu_8_0_enum.h
+            |   |   |   |   `-- smu_8_0_sh_mask.h
+            |   |   |   |-- uvd
+            |   |   |   |   |-- uvd_4_2_d.h
+            |   |   |   |   |-- uvd_4_2_sh_mask.h
+            |   |   |   |   |-- uvd_5_0_d.h
+            |   |   |   |   |-- uvd_5_0_enum.h
+            |   |   |   |   |-- uvd_5_0_sh_mask.h
+            |   |   |   |   |-- uvd_6_0_d.h
+            |   |   |   |   |-- uvd_6_0_enum.h
+            |   |   |   |   `-- uvd_6_0_sh_mask.h
+            |   |   |   `-- vce
+            |   |   |       |-- vce_2_0_d.h
+            |   |   |       |-- vce_2_0_sh_mask.h
+            |   |   |       |-- vce_3_0_d.h
+            |   |   |       `-- vce_3_0_sh_mask.h
+            |   |   |-- atom-bits.h
+            |   |   |-- atom-names.h
+            |   |   |-- atom-types.h
+            |   |   |-- atombios.h
+            |   |   |-- cgs_common.h
+            |   |   |-- cgs_linux.h
+            |   |   |-- cik_structs.h
+            |   |   |-- ivsrcid
+            |   |   |   `-- ivsrcid_vislands30.h
+            |   |   |-- kgd_kfd_interface.h
+            |   |   |-- pptable.h
+            |   |   |-- uapi
+            |   |   |   `-- drm
+            |   |   |       `-- amdgpu_drm.h
+            |   |   `-- vi_structs.h
+            |   |-- powerplay
+            |   |   |-- Kconfig
+            |   |   |-- Makefile
+            |   |   |-- amd_powerplay.c
+            |   |   |-- eventmgr
+            |   |   |   |-- Makefile
+            |   |   |   |-- eventactionchains.c
+            |   |   |   |-- eventactionchains.h
+            |   |   |   |-- eventinit.c
+            |   |   |   |-- eventinit.h
+            |   |   |   |-- eventmanagement.c
+            |   |   |   |-- eventmanagement.h
+            |   |   |   |-- eventmgr.c
+            |   |   |   |-- eventsubchains.c
+            |   |   |   |-- eventsubchains.h
+            |   |   |   |-- eventtasks.c
+            |   |   |   |-- eventtasks.h
+            |   |   |   |-- psm.c
+            |   |   |   `-- psm.h
+            |   |   |-- hwmgr
+            |   |   |   |-- Makefile
+            |   |   |   |-- cz_clockpowergating.c
+            |   |   |   |-- cz_clockpowergating.h
+            |   |   |   |-- cz_hwmgr.c
+            |   |   |   |-- cz_hwmgr.h
+            |   |   |   |-- fiji_clockpowergating.c
+            |   |   |   |-- fiji_clockpowergating.h
+            |   |   |   |-- fiji_dyn_defaults.h
+            |   |   |   |-- fiji_hwmgr.c
+            |   |   |   |-- fiji_hwmgr.h
+            |   |   |   |-- fiji_powertune.c
+            |   |   |   |-- fiji_powertune.h
+            |   |   |   |-- fiji_thermal.c
+            |   |   |   |-- fiji_thermal.h
+            |   |   |   |-- functiontables.c
+            |   |   |   |-- hardwaremanager.c
+            |   |   |   |-- hwmgr.c
+            |   |   |   |-- hwmgr_ppt.h
+            |   |   |   |-- polaris10_clockpowergating.c
+            |   |   |   |-- polaris10_clockpowergating.h
+            |   |   |   |-- polaris10_dyn_defaults.h
+            |   |   |   |-- polaris10_hwmgr.c
+            |   |   |   |-- polaris10_hwmgr.h
+            |   |   |   |-- polaris10_powertune.c
+            |   |   |   |-- polaris10_powertune.h
+            |   |   |   |-- polaris10_thermal.c
+            |   |   |   |-- polaris10_thermal.h
+            |   |   |   |-- pp_acpi.c
+            |   |   |   |-- ppatomctrl.c
+            |   |   |   |-- ppatomctrl.h
+            |   |   |   |-- ppevvmath.h
+            |   |   |   |-- pppcielanes.c
+            |   |   |   |-- pppcielanes.h
+            |   |   |   |-- processpptables.c
+            |   |   |   |-- processpptables.h
+            |   |   |   |-- tonga_clockpowergating.c
+            |   |   |   |-- tonga_clockpowergating.h
+            |   |   |   |-- tonga_dyn_defaults.h
+            |   |   |   |-- tonga_hwmgr.c
+            |   |   |   |-- tonga_hwmgr.h
+            |   |   |   |-- tonga_powertune.h
+            |   |   |   |-- tonga_pptable.h
+            |   |   |   |-- tonga_processpptables.c
+            |   |   |   |-- tonga_processpptables.h
+            |   |   |   |-- tonga_thermal.c
+            |   |   |   `-- tonga_thermal.h
+            |   |   |-- inc
+            |   |   |   |-- amd_powerplay.h
+            |   |   |   |-- cz_ppsmc.h
+            |   |   |   |-- eventmanager.h
+            |   |   |   |-- eventmgr.h
+            |   |   |   |-- fiji_ppsmc.h
+            |   |   |   |-- fiji_pwrvirus.h
+            |   |   |   |-- hardwaremanager.h
+            |   |   |   |-- hwmgr.h
+            |   |   |   |-- polaris10_ppsmc.h
+            |   |   |   |-- polaris10_pwrvirus.h
+            |   |   |   |-- power_state.h
+            |   |   |   |-- pp_acpi.h
+            |   |   |   |-- pp_asicblocks.h
+            |   |   |   |-- pp_debug.h
+            |   |   |   |-- pp_endian.h
+            |   |   |   |-- pp_feature.h
+            |   |   |   |-- pp_instance.h
+            |   |   |   |-- pp_power_source.h
+            |   |   |   |-- ppinterrupt.h
+            |   |   |   |-- smu7.h
+            |   |   |   |-- smu72.h
+            |   |   |   |-- smu72_discrete.h
+            |   |   |   |-- smu73.h
+            |   |   |   |-- smu73_discrete.h
+            |   |   |   |-- smu74.h
+            |   |   |   |-- smu74_discrete.h
+            |   |   |   |-- smu7_discrete.h
+            |   |   |   |-- smu7_fusion.h
+            |   |   |   |-- smu8.h
+            |   |   |   |-- smu8_fusion.h
+            |   |   |   |-- smu_ucode_xfer_cz.h
+            |   |   |   |-- smu_ucode_xfer_vi.h
+            |   |   |   |-- smumgr.h
+            |   |   |   `-- tonga_ppsmc.h
+            |   |   `-- smumgr
+            |   |       |-- Makefile
+            |   |       |-- cz_smumgr.c
+            |   |       |-- cz_smumgr.h
+            |   |       |-- fiji_smumgr.c
+            |   |       |-- fiji_smumgr.h
+            |   |       |-- polaris10_smumgr.c
+            |   |       |-- polaris10_smumgr.h
+            |   |       |-- smumgr.c
+            |   |       |-- tonga_smumgr.c
+            |   |       `-- tonga_smumgr.h
+            |   `-- scheduler
+            |       |-- gpu_sched_trace.h
+            |       |-- gpu_scheduler.c
+            |       |-- gpu_scheduler.h
+            |       `-- sched_fence.c
+            |-- amdgpu-pro-dkms-mkdeb
+            |   |-- Makefile
+            |   `-- debian
+            |       |-- README.Debian
+            |       |-- changelog
+            |       |-- compat
+            |       |-- control
+            |       |-- copyright
+            |       |-- dirs
+            |       |-- postinst
+            |       |-- prerm
+            |       `-- rules
+            |-- amdgpu-pro-dkms-mkdsc
+            |   |-- Makefile
+            |   `-- debian
+            |       |-- README.Debian
+            |       |-- changelog
+            |       |-- compat
+            |       |-- control
+            |       |-- copyright
+            |       |-- dirs
+            |       |-- postinst
+            |       |-- prerm
+            |       `-- rules
+            |-- dkms.conf
+            `-- pre-build.sh
+
+170 directories, 1126 files
