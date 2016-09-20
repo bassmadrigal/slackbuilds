@@ -71,8 +71,16 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
+# Create launcher file in /usr/bin/
 mkdir -p $PKG/usr/bin/
-install -m 0755 $CWD/filebot.bin $PKG/usr/bin/filebot
+cat << EOF > $PKG/usr/bin/filebot
+#!/bin/bash
+#
+# Launcher for FileBot
+
+/usr/share/filebot/bin/filebot.sh
+EOF
+chmod 0755 $PKG/usr/bin/filebot
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
