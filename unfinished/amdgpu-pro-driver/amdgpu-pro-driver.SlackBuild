@@ -91,7 +91,11 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 # Remove old X.org amdgpu drivers to prevent accidentally loading them
 rm -rf $PKG/usr/lib/x86_64-linux-gnu/amdgpu-pro/1.{15,16,17}/
+rm $PKG/usr/lib/x86_64-linux-gnu/amdgpu-pro/xorg
+cd $PKG/usr/lib/x86_64-linux-gnu/amdgpu-pro/
+ln -s 1.18 xorg
 
+cd $PKG
 mkdir -p $PKG/install/  
 cat << EOF > $PKG/install/slack-desc
 # HOW TO EDIT THIS FILE:
