@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for filebot
+# Slackware build script for amdgpu-pro-driver
 #
 # Copyright 2016  Jeremy Hansen <jebrhansen+SBo -at- gmail.com>
 # All rights reserved.
