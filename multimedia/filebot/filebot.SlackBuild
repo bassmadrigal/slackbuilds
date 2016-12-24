@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=filebot
-VERSION=${VERSION:-4.7.2}
+VERSION=${VERSION:-4.7.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_bass}
 
@@ -56,7 +56,7 @@ set -eu
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
-ar p $CWD/${PRGNAM}_${VERSION}_${DEBARCH}.deb data.tar.gz | gzip -d | tar xv
+ar p $CWD/${PRGNAM}_${VERSION}_${DEBARCH}.deb data.tar.xz | unxz | tar xv
 
 chown -R root:root .
 find -L . \
@@ -78,7 +78,7 @@ cat << EOF > $PKG/usr/bin/filebot
 #
 # Launcher for FileBot
 
-/usr/share/filebot/bin/filebot.sh
+/usr/share/filebot/filebot.sh
 EOF
 chmod 0755 $PKG/usr/bin/filebot
 
