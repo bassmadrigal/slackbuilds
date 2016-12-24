@@ -78,7 +78,7 @@ cat << EOF > $PKG/usr/bin/filebot
 #
 # Launcher for FileBot
 
-/usr/share/filebot/filebot.sh
+/usr/share/filebot/filebot.sh "$@"
 EOF
 chmod 0755 $PKG/usr/bin/filebot
 
