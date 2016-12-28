@@ -24,7 +24,7 @@
 
 PKGNAM=python3-setuptools
 SRCNAM=setuptools
-VERSION=${VERSION:-21.2.2}
+VERSION=${VERSION:-22.0.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_bass}
 
@@ -60,11 +60,13 @@ rm -f setuptools/*.exe
 python3 setup.py install --root=$PKG
 
 mkdir -p $PKG/usr/doc/$PKGNAM-$VERSION
-cp -a CHANGES.rst PKG-INFO README.rst $PKG/usr/doc/$PKGNAM-$VERSION
-find $PKG/usr/doc/$PKGNAM-$VERSION -type f -exec chmod 0644 {} \;
+cp -a \
+  CHANGES.rst PKG-INFO README.rst \
+  $PKG/usr/doc/$PKGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
