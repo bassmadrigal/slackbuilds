@@ -5,8 +5,6 @@ new episodes of your favorite shows, and when they are posted it does its
 magic: automatic torrent/nzb searching, downloading, and processing at the
 qualities you want.
 
-Homepage: https://sickrage.github.io/
-
 NOTE: Requires sickrage user and group.
 (uid/gid assigned by SBo -- see https://slackbuilds.org/uid_gid.txt)
  groupadd -g 324 sickrage
