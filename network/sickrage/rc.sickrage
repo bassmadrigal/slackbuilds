@@ -20,17 +20,9 @@ for var in USERNAME HOMEDIR DATADIR PIDFILE PORT; do
     exit 1
   fi
 done
-    
-# Ensure directories are created and get the status of the program
+
+# Check if the pid file exists
 check() {
-#   # create data directory if it doesn't exist and ensure the user can write to it
-#   mkdir -p $DATADIR
-#   chown $USERNAME $DATADIR
-#     
-#   # create log directory if it doesn't exist and ensure the user can write to it
-#   mkdir -p $LOGDIR
-#   chown $USERNAME $LOGDIR
-#   
   if [ -e $PIDFILE ]; then
     STATUS=running
   else
@@ -77,7 +69,7 @@ stop() {
     PID=$(cat $PIDFILE)
     echo -n $"Shutting down ${PROG}: "
     curl -f http://localhost:${PORT}/home/shutdown/?pid=${PID} &> /dev/null
-    if (( $? > 0 )); then
+    if [ $? -gt 0 ]; then
       echo "Normal Shutdown Failed - Attempting to kill the process."
       echo $?
       sleep 7
