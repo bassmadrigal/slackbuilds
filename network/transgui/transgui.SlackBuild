@@ -77,7 +77,8 @@ lazbuild "transgui.lpi" --lazarusdir=/usr/share/lazarus --widgetset=gtk2
 install -D -m 755 units/transgui $PKG/usr/bin/transgui
 
 mkdir -p $PKG/usr/share/$PRGNAM/lang
-cp lang/transgui.* $PKG/usr/share/$PRGNAM/lang/"
+cp lang/transgui.* $PKG/usr/share/$PRGNAM/lang/
+rm $PKG/usr/share/$PRGNAM/lang/transgui.template
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
