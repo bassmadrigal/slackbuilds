@@ -1,4 +1,4 @@
-PRGNAM="transmission-remote-gui"
+PRGNAM="transgui"
 VERSION="5.4.0"
 HOMEPAGE="https://github.com/leonsoft-kras/transmisson-remote-gui/"
 DOWNLOAD="https://github.com/leonsoft-kras/transmisson-remote-gui/archive/v5.4.0/transgui-5.4.0.tar.gz"
