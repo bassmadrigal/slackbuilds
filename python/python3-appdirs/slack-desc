@@ -8,12 +8,12 @@
                |-----handy-ruler------------------------------------------------------|
 python3-appdirs: python3-appdirs (module to determine platform-specific dirs)
 python3-appdirs:
-python3-appdirs: python3-appdirs A small Python module for determining appropriate   
+python3-appdirs: python3-appdirs A small Python module for determining appropriate
 python3-appdirs: platform-specific dirs, e.g. a "user data dir".
-python3-appdirs: 
+python3-appdirs:
 python3-appdirs:
 python3-appdirs: Homepage: https://github.com/sigmavirus24/appdirs
 python3-appdirs:
-python3-appdirs: 
-python3-appdirs: 
-python3-appdirs: 
+python3-appdirs:
+python3-appdirs:
+python3-appdirs:

@@ -5,6 +5,6 @@ DOWNLOAD="https://github.com/ActiveState/appdirs/archive/1.4.0/appdirs-1.4.0.tar
 MD5SUM="37b4ed52c2f468e183f067ac96ddc279"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
-REQUIRES=""
+REQUIRES="python3"
 MAINTAINER="Jeremy Hansen"
 EMAIL="jebrhansen+SBo -at- gmail.com"
