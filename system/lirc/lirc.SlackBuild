@@ -28,14 +28,14 @@
 PRGNAM=lirc
 VERSION=${VERSION:-0.9.3a}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_bass}
+TAG=${TAG:-_SBo}
 
 KERNEL=${KERNEL:-$(uname -r)}
 PKG_VERS=${VERSION}_$(echo $KERNEL| tr - _)
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i586 ;;
+    i?86) ARCH=i486 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
@@ -46,8 +46,8 @@ TMP=${TMP:-/tmp/SBo}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-if [ "$ARCH" = "i586" ]; then
-  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
+if [ "$ARCH" = "i486" ]; then
+  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -march=i686 -mtune=i686"
@@ -109,9 +109,13 @@ for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; r
 # This is an empty file :|
 rm -f $PKG/usr/man/man1/smode2.1.gz
 
+# Fixup doc owner & mode
+chown -R root:root $PKG/usr/share/doc/lirc/lirc.org/api-docs
+chmod -R go-w      $PKG/usr/share/doc/lirc/lirc.org/api-docs
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a AUTHORS COPYING ChangeLog INSTALL NEWS README \
-  doc/{html,irxevent.keys,lirc.hwdb} $PKG/usr/doc/$PRGNAM-$VERSION
+  doc/{html,irxevent.keys} $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
