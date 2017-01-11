@@ -49,9 +49,11 @@ OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i586" ]; then
   DEBARCH="i386"
+  DRIARCH="i386"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
   DEBARCH="amd64"
+  DRIARCH="x86_64"
   LIBDIRSUFFIX="64"
 else
   echo "Package for $(uname -m) architecture is not available."
@@ -79,24 +81,30 @@ find -L . \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
-  
+
 # Strip binaries and libraries - this can be done with 'make install-strip'
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-  
+
 # Man page already compressed
 
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/ 
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 # Remove old X.org amdgpu drivers to prevent accidentally loading them
+# Not needed for 16.40 and 16.50
 #rm -rf $PKG/usr/lib/x86_64-linux-gnu/amdgpu-pro/1.{15,16,17}/
 #rm $PKG/usr/lib/x86_64-linux-gnu/amdgpu-pro/xorg
 #cd $PKG/usr/lib/x86_64-linux-gnu/amdgpu-pro/
 #ln -s 1.18 xorg
 
+# Move amdgpu_dri.so file to where X expects it
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri/
+mv $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/amdgpu_dri.so $PKG/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri/
+rmdir -p --ignore-fail-on-non-empty $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/
+
 cd $PKG
-mkdir -p $PKG/install/  
+mkdir -p $PKG/install/
 cat << EOF > $PKG/install/slack-desc
 # HOW TO EDIT THIS FILE:
 # The "handy ruler" below makes it easier to edit a package description.
