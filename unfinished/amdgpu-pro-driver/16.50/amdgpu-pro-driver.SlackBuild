@@ -103,6 +103,9 @@ mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri/
 mv $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/amdgpu_dri.so $PKG/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri/
 rmdir -p --ignore-fail-on-non-empty $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/
 
+# Make sure 10-amdgpu-pro.conf points to correct location based on ARCH
+sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-amdgpu-pro.conf
+
 cd $PKG
 mkdir -p $PKG/install/
 cat << EOF > $PKG/install/slack-desc
