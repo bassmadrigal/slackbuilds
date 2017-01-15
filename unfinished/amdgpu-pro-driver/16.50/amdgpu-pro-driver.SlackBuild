@@ -75,6 +75,7 @@ for i in $TMP/${SRCNAM}-${VERSION}/*_{$DEBARCH,all}.deb; do
   ar p $i data.tar.xz | unxz | tar xv
 done
 
+# Set proper permissions
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -86,19 +87,11 @@ find -L . \
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-# Man page already compressed
-
+# Add the SlackBuild to the doc directory
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
-# Remove old X.org amdgpu drivers to prevent accidentally loading them
-# Not needed for 16.40 and 16.50
-#rm -rf $PKG/usr/lib/x86_64-linux-gnu/amdgpu-pro/1.{15,16,17}/
-#rm $PKG/usr/lib/x86_64-linux-gnu/amdgpu-pro/xorg
-#cd $PKG/usr/lib/x86_64-linux-gnu/amdgpu-pro/
-#ln -s 1.18 xorg
-
-# Move amdgpu_dri.so file to where X expects it
+# Move amdgpu_dri.so file to where X expects it and remove the empty directory
 mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri/
 mv $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/amdgpu_dri.so $PKG/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri/
 rmdir -p --ignore-fail-on-non-empty $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/
@@ -106,6 +99,7 @@ rmdir -p --ignore-fail-on-non-empty $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/
 # Make sure 10-amdgpu-pro.conf points to correct location based on ARCH
 sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-amdgpu-pro.conf
 
+# Create the slack-desc file
 cd $PKG
 mkdir -p $PKG/install/
 cat << EOF > $PKG/install/slack-desc
