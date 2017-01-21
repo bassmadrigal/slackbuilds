@@ -59,7 +59,7 @@ else
   LIBDIRSUFFIX=""
 fi
 
-#set -e
+set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
@@ -79,18 +79,12 @@ mv cppgui-$CPPGUIVER/ external/gwen
 tar xvf $CWD/vhacd-lib-$VHACDVER.tar.gz
 mv vhacd-lib-$VHACDVER/ external/vhacd-lib
 
-# Copy cmake stuff
-#cp $CWD/glPortal-master/cmake/* cmake/.
-
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
-
-# Patch to replace missing XML_NO_ERROR with supported XML_SUCCESS
-#patch -p1 < $CWD/xmlnoerror.patch
 
 mkdir -p build
 cd build
@@ -100,34 +94,21 @@ cd build
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DUnitTestPlusPlus_INCLUDE_DIR=/usr/include/UnitTest++/ ..
-read junk
   make
   make install DESTDIR=$PKG
 cd ..
 
-# Strip binaries and libraries - this can be done with 'make install-strip'
-# in many source trees, and that's usually acceptable, if not, use this:
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-# Copy program documentation into the package
-# The included documentation varies from one application to another, so be sure
-# to adjust your script as needed
-# Also, include the SlackBuild script in the documentation directory
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
   COMPILE.md CONTRIBUTE.md CONTRIBUTORS.md LICENSE.md README.md \
   $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
-# Copy the slack-desc (and a custom doinst.sh if necessary) into ./install
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
-# Make the package; be sure to leave it in $OUTPUT
-# If package symlinks need to be created during install *before*
-# your custom contents of doinst.sh runs, then add the -p switch to
-# the makepkg command below -- see makepkg(8) for details
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
