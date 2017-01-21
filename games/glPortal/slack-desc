@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
         |-----handy-ruler------------------------------------------------------|
-glPortal: glPortal (3d physics based puzzle game)
+glPortal: glPortal (3d physics based portal puzzle game)
 glPortal:
 glPortal: GlPortal is not a Portal clone; it features its own story centered
 glPortal: around an ambitious lab assistant named Ada, who has to solve
