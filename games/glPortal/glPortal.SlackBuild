@@ -23,7 +23,12 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=glPortal
-VERSION=${VERSION:-0.5.0}
+VERSION=${VERSION:-c3d5e47}
+SRCVER=${SRCVER:-c3d5e47c5151360c09d0d84f66d9c0e3c2051251}
+DATAVER=${DATAVER:-d391875c9110ed2b04b9014b3ab6a587c2aa921d}
+SPECVER=${SPECVER:-2bcaa5de0e6cae58e53008efcc8a9ec5f2f8ba92}
+CPPGUIVER=${CPPGUIVER:-f45a7b94da031914a86e1823d5affc512cc9de66}
+VHACDVER=${VHACDVER:-537b2413299a5a7d22a4aa0f9f26901b0f38daf2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -59,9 +64,24 @@ fi
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
-cd $PRGNAM-$VERSION
+rm -rf $PRGNAM-$SRCVER
+tar xvf $CWD/$PRGNAM-$SRCVER.tar.gz
+cd $PRGNAM-$SRCVER
+
+# Extract submodules to correct locations
+rmdir data documentation/specification external/{gwen,vhacd-lib}
+tar xvf $CWD/glportal_data-$DATAVER.tar.gz
+mv glportal_data-$DATAVER/ data
+tar xvf $CWD/specification-$SPECVER.tar.gz
+mv specification-$SPECVER/ documentation/specification
+tar xvf $CWD/cppgui-$CPPGUIVER.tar.gz
+mv cppgui-$CPPGUIVER/ external/gwen
+tar xvf $CWD/vhacd-lib-$VHACDVER.tar.gz
+mv vhacd-lib-$VHACDVER/ external/vhacd-lib
+
+# Copy cmake stuff
+#cp $CWD/glPortal-master/cmake/* cmake/.
+
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -69,15 +89,17 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+# Patch to replace missing XML_NO_ERROR with supported XML_SUCCESS
+#patch -p1 < $CWD/xmlnoerror.patch
+
 mkdir -p build
 cd build
   cmake \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
-    -DMAN_INSTALL_DIR=/usr/man \
-    -DCMAKE_BUILD_TYPE=Release ..
+    -DCMAKE_BUILD_TYPE=Release \
+    -DUnitTestPlusPlus_INCLUDE_DIR=/usr/include/UnitTest++/ ..
 read junk
   make
   make install DESTDIR=$PKG
@@ -88,29 +110,13 @@ cd ..
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-# Compress man pages
-# If the man pages are installed to /usr/share/man instead, you'll need to 
-# move them manually.
-find $PKG/usr/man -type f -exec gzip -9 {} \;
-for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
-
-# Compress info pages and remove the package's dir file
-# If no info pages are installed by the software, don't leave this in the script
-rm -f $PKG/usr/info/dir
-gzip -9 $PKG/usr/info/*.info*
-
-# Remove perllocal.pod and other special files that don't need to be installed,
-# as they will overwrite what's already on the system.  If this is not needed,
-# remove it from the script.
-find $PKG -name perllocal.pod -o -name ".packlist" -o -name "*.bs" | xargs rm -f || true
-
 # Copy program documentation into the package
 # The included documentation varies from one application to another, so be sure
 # to adjust your script as needed
 # Also, include the SlackBuild script in the documentation directory
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
-  <documentation> \
+  COMPILE.md CONTRIBUTE.md CONTRIBUTORS.md LICENSE.md README.md \
   $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
@@ -124,5 +130,4 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 # your custom contents of doinst.sh runs, then add the -p switch to
 # the makepkg command below -- see makepkg(8) for details
 cd $PKG
-read junk
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

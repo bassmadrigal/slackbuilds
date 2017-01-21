@@ -1,8 +1,16 @@
 PRGNAM="glPortal"
 VERSION="version of application"
 HOMEPAGE="http://glportal.de/"
-DOWNLOAD="https://github.com/GlPortal/glPortal/archive/0.5.0/glPortal-0.5.0.tar.gz"
-MD5SUM="fbd40c2f0efea68ecf1f463dbd43a87a"
+DOWNLOAD="https://github.com/GlPortal/glPortal/archive/c3d5e47/glPortal-c3d5e47c5151360c09d0d84f66d9c0e3c2051251.tar.gz \
+https://github.com/GlPortal/glportal_data/archive/d391875/glportal_data-d391875c9110ed2b04b9014b3ab6a587c2aa921d.tar.gz \
+https://github.com/GlPortal/specification/archive/2bcaa5d/specification-2bcaa5de0e6cae58e53008efcc8a9ec5f2f8ba92.tar.gz \
+https://github.com/GlPortal/cppgui/archive/f45a7b9/cppgui-f45a7b94da031914a86e1823d5affc512cc9de66.tar.gz \
+https://github.com/GlPortal/vhacd-lib/archive/537b241/vhacd-lib-537b2413299a5a7d22a4aa0f9f26901b0f38daf2.tar.gz"
+MD5SUM="fbd40c2f0efea68ecf1f463dbd43a87a \
+aeae48fb40e76d9369fb9198e9cc6099 \
+75e2cd8467f199fb8f6780f8578d0e9d \
+acdeea86872732b2677f4aae1b6ac63e \
+04a04face0567a8be26678b54fd7e13d"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
 REQUIRES="assimp SDL2 bullet tinyxml2 libunittest"
