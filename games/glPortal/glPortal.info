@@ -1,5 +1,5 @@
 PRGNAM="glPortal"
-VERSION="version of application"
+VERSION="c3d5e47"
 HOMEPAGE="http://glportal.de/"
 DOWNLOAD="https://github.com/GlPortal/glPortal/archive/c3d5e47/glPortal-c3d5e47c5151360c09d0d84f66d9c0e3c2051251.tar.gz \
 https://github.com/GlPortal/glportal_data/archive/d391875/glportal_data-d391875c9110ed2b04b9014b3ab6a587c2aa921d.tar.gz \
@@ -13,6 +13,6 @@ acdeea86872732b2677f4aae1b6ac63e \
 04a04face0567a8be26678b54fd7e13d"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
-REQUIRES="assimp SDL2 SDL2_mixer bullet tinyxml2 libunittest"
+REQUIRES="assimp SDL2 SDL2_mixer bullet tinyxml2 unittest-cpp"
 MAINTAINER="Jeremy Hansen"
-EMAIL="jebrhansen+SBo -at- gmail.com"
+EMAIL="jebrhansen+SBo@gmail.com"
