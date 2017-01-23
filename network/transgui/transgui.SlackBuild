@@ -24,7 +24,7 @@
 
 PRGNAM=transgui
 SRCNAM=transmisson-remote-gui
-VERSION=${VERSION:-5.5.0}
+VERSION=${VERSION:-5.5.1}
 BUILD=${BUILD:-2}
 TAG=${TAG:-_SBo}
 
