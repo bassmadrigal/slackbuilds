@@ -104,6 +104,31 @@ ln -s /usr/lib${LIBDIRSUFFIX}/xorg/modules/dri $PKG/usr/lib/x86_64-linux-gnu/dri
 # Make sure 10-amdgpu-pro.conf points to correct location based on ARCH
 sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-amdgpu-pro.conf
 
+# Edit dkms.conf to install firmware to Slackware's location
+sed -i 's|/lib/firmware/$KERNELVER|/lib/firmware/|' $PKG/usr/src/$SRCNAM-$VERSION/pre-build.sh
+
+# Patch the crap outta the source so we can build the module
+for i in $CWD/patches/*.patch; do patch -p1 < $i; done
+
+# Set up overlayfs to build the dkms module and keep it within the package
+#mkdir -p $TMP/${SRCNAM}-${VERSION}/tmp
+#mount -t overlay overlay -olowerdir=/,upperdir=$PKG,workdir=$TMP/${SRCNAM}-${VERSION}/tmp $PKG
+#chroot $PKG
+
+# Check if dkms is installed
+#if [ ! -x /usr/sbin/dkms ]; then
+#  echo "Please install dkms from SBo"
+#  exit 1
+#fi
+
+# Let's build and install the module
+#dkms add $PKG/usr/src/${SRCNAM}-${VERSION}
+#dkms install -m ${SRCNAM} -v ${VERSION}
+
+# Let's unmount the overlay and delete the tmp folder
+#umount $PKG
+#rm -r $PKG/tmp
+
 # Create the slack-desc file
 cd $PKG
 mkdir -p $PKG/install/

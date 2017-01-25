@@ -1,0 +1,29 @@
+From fba78363cabac73114af21f578c48bf6ddbc05d3 Mon Sep 17 00:00:00 2001
+From: Jeremy Hansen <jebrhansen@gmail.com>
+Date: Tue, 24 Jan 2017 18:44:37 -0500
+Subject: [PATCH 06/11] Fix drm_atomic_helper_swap_state for 4.8.0
+
+Thanks to laguest and corngood
+---
+ usr/src/amdgpu-pro-16.50-362463/amd/dal/amdgpu_dm/amdgpu_dm_types.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/usr/src/amdgpu-pro-16.50-362463/amd/dal/amdgpu_dm/amdgpu_dm_types.c b/usr/src/amdgpu-pro-16.50-362463/amd/dal/amdgpu_dm/amdgpu_dm_types.c
+index 32755a9..60ca073 100644
+--- a/usr/src/amdgpu-pro-16.50-362463/amd/dal/amdgpu_dm/amdgpu_dm_types.c
++++ b/usr/src/amdgpu-pro-16.50-362463/amd/dal/amdgpu_dm/amdgpu_dm_types.c
+@@ -2528,7 +2528,11 @@ int amdgpu_dm_atomic_commit(
+ 	 * the software side now.
+ 	 */
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 8, 0)
++	drm_atomic_helper_swap_state(state, true);
++#else
+ 	drm_atomic_helper_swap_state(dev, state);
++#endif
+ 
+ 	/*
+ 	 * From this point state become old state really. New state is
+-- 
+2.9.0
+
