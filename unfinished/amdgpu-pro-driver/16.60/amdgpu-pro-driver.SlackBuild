@@ -104,11 +104,12 @@ ln -s /usr/lib${LIBDIRSUFFIX}/xorg/modules/dri $PKG/usr/lib/x86_64-linux-gnu/dri
 # Make sure 10-amdgpu-pro.conf points to correct location based on ARCH
 sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-amdgpu-pro.conf
 
-# Gonna manually copy the firmware so dkms doesn't do it outside of the package
+# Copy the firmware to the correct location
 mkdir $PKG/lib/firmware/
 mv $PKG/usr/src/${SRCNAM}-${SRCVER}/firmware/{amdgpu,radeon} $PKG/lib/firmware
 
 # Conditional to build the dkms driver. Pass BUILDDKMS=yes to build it.
+# This doesn't currently build with 16.60. I'll have to dig through the patches
 if [ "${BUILDDKMS:-no}" == "yes" ]; then
 
   # Patch the crap outta the source so we can build the module
@@ -140,10 +141,47 @@ if [ "${BUILDDKMS:-no}" == "yes" ]; then
     --installtree lib/modules
 fi
 
-# Create the slack-desc file
+# Let's build the module, but make it optional since it doesn't currently work
+if [ "${BUILDMODULE:-no}" == "yes" ]; then
+  mkdir $PKG/lib/modules/$(uname -r)/extra
+  make -C /lib/modules/$(uname -r)/build M=$PKG/usr/src/${SRCNAM}-${SRCVER}
+  strip --strip-debug $PKG/usr/src/${SRCNAM}-${SRCVER}/amd/amdgpu/amdgpu.ko
+  cp $PKG/usr/src/${SRCNAM}-${SRCVER}/amd/amdgpu/amdgpu.ko $PKG/lib/modules/$(uname -r)/extra
+fi
+
+# We need to make sure the system loads AMD's libraries over Slackware's
+# Let's try to keep the destruction to a minimum
 cd $PKG
 mkdir -p $PKG/install/
-cat << EOF > $PKG/install/slack-desc
+cp /etc/ld.so.conf $PKG/etc/ld.so.conf.new
+cat << 'EOF' > $PKG/install/doinst.sh
+config() {
+  NEW="$1"
+  OLD="$(dirname $NEW)/$(basename $NEW .new)"
+  # If there's no config file by that name, mv it over:
+  if [ ! -r $OLD ]; then
+    mv $NEW $OLD
+  elif [ "$(cat $OLD | md5sum)" = "$(cat $NEW | md5sum)" ]; then
+    # toss the redundant copy
+    rm $NEW
+  fi
+  # Otherwise, we leave the .new copy for the admin to consider...
+}
+
+if ! grep /opt/amdgpu-pro/lib/x86_64-linux-gnu/ /etc/ld.so.conf 1> /dev/null 2> /dev/null; then
+  cp /etc/ld.so.conf etc/ld.so.conf.new
+  echo -e "/opt/amdgpu-pro/lib/x86_64-linux-gnu/\n$(cat etc/ld.so.conf.new)" > etc/ld.so.conf.new
+fi
+
+config etc/ld.so.conf.new
+
+if [ -x /sbin/ldconfig ]; then
+  /sbin/ldconfig 2> /dev/null
+fi
+EOF
+
+# Create the slack-desc file
+cat << 'EOF' > $PKG/install/slack-desc
 # HOW TO EDIT THIS FILE:
 # The "handy ruler" below makes it easier to edit a package description.
 # Line up the first '|' above the ':' following the base package name, and
@@ -154,15 +192,18 @@ cat << EOF > $PKG/install/slack-desc
                  |-----handy-ruler------------------------------------------------------|
 amdgpu-pro-driver: amdgpu-pro-driver (Binary addon for amdgpu driver)
 amdgpu-pro-driver:
-amdgpu-pro-driver: This driver package is the Beta release of AMDGPU-Pro Stack for Radeon
-amdgpu-pro-driver: RX 480 Graphics, RX 470 Graphics, and Radeon RX 460 Graphics. This
-amdgpu-pro-driver: driver works in conjunction with the amdgpu kernel driver.
+amdgpu-pro-driver: This driver package is the Beta release of AMDGPU-Pro Stack for
+amdgpu-pro-driver: Radeon RX 480 Graphics, RX 470 Graphics, and Radeon RX 460 Graphics.
+amdgpu-pro-driver: This driver works in conjunction with the amdgpu kernel driver.
 amdgpu-pro-driver:
-amdgpu-pro-driver: The AMDGPU-Pro driver includes support for OpenGL, OpenCL, Vulkan, and
-amdgpu-pro-driver: VDPAU support.
+amdgpu-pro-driver: The AMDGPU-Pro driver includes support for OpenGL, OpenCL, Vulkan,
+amdgpu-pro-driver: and VDPAU support.
+amdgpu-pro-driver:
 amdgpu-pro-driver: Homepage: http://support.amd.com/
 amdgpu-pro-driver:
-amdgpu-pro-driver:
 EOF
+
+# Let's fix the version so the slack-desc works
+VERSION=$(echo $VERSION | tr - _ )
 
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
