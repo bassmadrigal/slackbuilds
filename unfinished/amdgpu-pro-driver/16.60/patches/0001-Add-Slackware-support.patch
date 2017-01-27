@@ -1,0 +1,25 @@
+From e53070241c33100571d9e379241469826f5e681f Mon Sep 17 00:00:00 2001
+From: Jeremy Hansen <jebrhansen@gmail.com>
+Date: Tue, 24 Jan 2017 18:13:04 -0500
+Subject: [PATCH 01/11] Add Slackware support
+
+---
+ usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile b/usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile
+index a6ab7fe..6709c5e 100644
+--- a/usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile
++++ b/usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile
+@@ -22,6 +22,8 @@ else ifeq ("sled",$(OS_NAME))
+ ccflags-y += -DOS_NAME_SLE
+ else ifeq ("sles",$(OS_NAME))
+ ccflags-y += -DOS_NAME_SLE
++else ifeq ("slackware",$(OS_NAME))
++ccflags-y += -DOS_NAME_SLACKWARE
+ else
+ ccflags-y += -DOS_NAME_UNKNOWN
+ endif
+-- 
+2.9.0
+

@@ -1,0 +1,3 @@
+dkms install -m amdgpu-pro -v ${VERSION}
+dkms remove -m amdgpu-pro -v ${VERSION} -k ${KV_FULL}
+rm -rf /var/lib/dkms/amdgpu-pro

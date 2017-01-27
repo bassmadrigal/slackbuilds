@@ -1,0 +1,62 @@
+From f327d02c3ac02306f0f326b2c4c90f074583e6a9 Mon Sep 17 00:00:00 2001
+From: Jeremy Hansen <jebrhansen@gmail.com>
+Date: Tue, 24 Jan 2017 18:51:36 -0500
+Subject: [PATCH 09/11] Remove dependency on System.map
+
+Thanks to corngood
+---
+ usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile    |  1 -
+ usr/src/amdgpu-pro-16.50-362463/amd/backport/kcl_fence.c | 10 ++++++++--
+ usr/src/amdgpu-pro-16.50-362463/amd/backport/symbols     |  7 -------
+ 3 files changed, 8 insertions(+), 10 deletions(-)
+ delete mode 100644 usr/src/amdgpu-pro-16.50-362463/amd/backport/symbols
+
+diff --git a/usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile b/usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile
+index 6709c5e..6527c73 100644
+--- a/usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile
++++ b/usr/src/amdgpu-pro-16.50-362463/amd/backport/Makefile
+@@ -61,7 +61,6 @@ ccflags-y += -DOS_NAME_RHEL_7_3
+ endif
+ endif
+ 
+-BACKPORT_OBJS = symbols.o
+ endif
+ 
+ BACKPORT_OBJS += kcl_drm.o kcl_ttm.o kcl_amdgpu.o kcl_fence.o kcl_mn.o amdgpu_kcl.o kcl_fence_array.o kcl_kthread.o
+diff --git a/usr/src/amdgpu-pro-16.50-362463/amd/backport/kcl_fence.c b/usr/src/amdgpu-pro-16.50-362463/amd/backport/kcl_fence.c
+index 54ad819..39f6d61 100644
+--- a/usr/src/amdgpu-pro-16.50-362463/amd/backport/kcl_fence.c
++++ b/usr/src/amdgpu-pro-16.50-362463/amd/backport/kcl_fence.c
+@@ -52,8 +52,14 @@ struct default_wait_cb {
+ 	struct task_struct *task;
+ };
+ 
+-extern void
+-(*fence_default_wait_cb)(struct fence *fence, struct fence_cb *cb);
++static void
++fence_default_wait_cb(struct fence *fence, struct fence_cb *cb)
++{
++	struct default_wait_cb *wait =
++		container_of(cb, struct default_wait_cb, base);
++
++	wake_up_process(wait->task);
++}
+ 
+ signed long
+ _kcl_fence_wait_any_timeout(struct fence **fences, uint32_t count,
+diff --git a/usr/src/amdgpu-pro-16.50-362463/amd/backport/symbols b/usr/src/amdgpu-pro-16.50-362463/amd/backport/symbols
+deleted file mode 100644
+index 68cae63..0000000
+--- a/usr/src/amdgpu-pro-16.50-362463/amd/backport/symbols
++++ /dev/null
+@@ -1,7 +0,0 @@
+-SYMS=""
+-
+-SYMS+="fence_default_wait_cb"
+-
+-if version_lt 2.6.33; then
+-    SYMS+=" kallsyms_lookup_name"
+-fi
+-- 
+2.9.0
+

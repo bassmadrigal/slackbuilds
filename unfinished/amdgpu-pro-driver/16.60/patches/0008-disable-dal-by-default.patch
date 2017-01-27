@@ -1,0 +1,26 @@
+From 6b6ba495c1b95dcd84798dfa4730240e5f13fea6 Mon Sep 17 00:00:00 2001
+From: Jeremy Hansen <jebrhansen@gmail.com>
+Date: Tue, 24 Jan 2017 18:51:13 -0500
+Subject: [PATCH 08/11] disable dal by default
+
+Thanks tocorngood
+---
+ usr/src/amdgpu-pro-16.50-362463/amd/amdgpu/amdgpu_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/usr/src/amdgpu-pro-16.50-362463/amd/amdgpu/amdgpu_drv.c b/usr/src/amdgpu-pro-16.50-362463/amd/amdgpu/amdgpu_drv.c
+index d6b3f35..4477865 100755
+--- a/usr/src/amdgpu-pro-16.50-362463/amd/amdgpu/amdgpu_drv.c
++++ b/usr/src/amdgpu-pro-16.50-362463/amd/amdgpu/amdgpu_drv.c
+@@ -88,7 +88,7 @@ int amdgpu_vm_fault_stop = 0;
+ int amdgpu_vm_debug = 0;
+ int amdgpu_vram_page_split = -1;
+ int amdgpu_exp_hw_support = 0;
+-int amdgpu_dal = -1;
++int amdgpu_dal = 0;
+ int amdgpu_sched_jobs = 32;
+ int amdgpu_sched_hw_submission = 2;
+ int amdgpu_powerplay = -1;
+-- 
+2.9.0
+
