@@ -108,33 +108,38 @@ sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-
 mkdir $PKG/lib/firmware/
 mv $PKG/usr/src/${SRCNAM}-${SRCVER}/firmware/{amdgpu,radeon} $PKG/lib/firmware
 
-# Patch the crap outta the source so we can build the module
-for i in $CWD/patches/*.patch; do patch -p1 < $i; done
+# Conditional to build the dkms driver. Pass BUILDDKMS=yes to build it.
+# Not yet working for 16.60
+if [ "${BUILDDKMS:-no}" == "yes" ]; then
 
-# Prevent dkms from trying to rebuild an initrd
-sed -i 's/REMAKE_INITRD="yes"/REMAKE_INITRD="no"/' $PKG/usr/src/${SRCNAM}-${SRCVER}/dkms.conf
+  # Patch the crap outta the source so we can build the module
+  for i in $CWD/patches/*.patch; do patch -p1 < $i; done
 
-# Add the kernel module to the correct location
-sed -i 's|/updates|/kernel/drivers/gpu/drm/amd/amdgpu|' $PKG/usr/src/${SRCNAM}-${SRCVER}/dkms.conf
+  # Prevent dkms from trying to rebuild an initrd
+  sed -i 's/REMAKE_INITRD="yes"/REMAKE_INITRD="no"/' $PKG/usr/src/${SRCNAM}-${SRCVER}/dkms.conf
 
-# Set up the source for dkms building
-mkdir -p $PKG/var/lib/dkms/${SRCNAM}/${SRCVER}/source/
-ln -s /var/lib/dkms/${SRCNAM}/${SRCVER}/source usr/src/${SRCNAM}-${SRCVER}
+  # Add the kernel module to the correct location
+  sed -i 's|/updates|/kernel/drivers/gpu/drm/amd/amdgpu|' $PKG/usr/src/${SRCNAM}-${SRCVER}/dkms.conf
 
-# Check if dkms is installed
-if [ ! -x /usr/sbin/dkms ]; then
-  echo "Please install dkms from SBo"
-  exit 1
+  # Set up the source for dkms building
+  mkdir -p $PKG/var/lib/dkms/${SRCNAM}/${SRCVER}/source/
+  ln -s /var/lib/dkms/${SRCNAM}/${SRCVER}/source usr/src/${SRCNAM}-${SRCVER}
+
+  # Check if dkms is installed
+  if [ ! -x /usr/sbin/dkms ]; then
+    echo "Please install dkms from SBo"
+    exit 1
+  fi
+
+  # Let's build it
+  mkdir -p $PKG/lib/modules/`uname -r`/kernel/drivers/gpu/drm/amd/amdgpu
+  dkms install \
+    -m ${SRCNAM} \
+    -v ${SRCVER} \
+    --sourcetree $PKG/usr/src \
+    --dkmstree $PKG/var/lib/dkms/${SRCNAM}/${SRCVER} \
+    --installtree lib/modules
 fi
-
-# Let's build it
-mkdir -p $PKG/lib/modules/`uname -r`/kernel/drivers/gpu/drm/amd/amdgpu
-dkms install \
-  -m ${SRCNAM} \
-  -v ${SRCVER} \
-  --sourcetree $PKG/usr/src \
-  --dkmstree $PKG/var/lib/dkms/${SRCNAM}/${SRCVER} \
-  --installtree lib/modules
 
 # Create the slack-desc file
 cd $PKG
