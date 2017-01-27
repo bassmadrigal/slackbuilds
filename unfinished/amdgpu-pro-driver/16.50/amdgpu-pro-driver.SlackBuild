@@ -104,30 +104,38 @@ ln -s /usr/lib${LIBDIRSUFFIX}/xorg/modules/dri $PKG/usr/lib/x86_64-linux-gnu/dri
 # Make sure 10-amdgpu-pro.conf points to correct location based on ARCH
 sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-amdgpu-pro.conf
 
-# Edit dkms.conf to install firmware to Slackware's location
-sed -i 's|/lib/firmware/$KERNELVER|/lib/firmware/|' $PKG/usr/src/$SRCNAM-$VERSION/pre-build.sh
+# Gonna manually copy the firmware so dkms doesn't do it outside of the package
+mkdir $PKG/lib/firmware/
+mv $PKG/usr/src/${SRCNAM}-${VERSION}/firmware/{amdgpu,radeon} $PKG/lib/firmware
 
 # Patch the crap outta the source so we can build the module
 for i in $CWD/patches/*.patch; do patch -p1 < $i; done
 
-# Set up overlayfs to build the dkms module and keep it within the package
-#mkdir -p $TMP/${SRCNAM}-${VERSION}/tmp
-#mount -t overlay overlay -olowerdir=/,upperdir=$PKG,workdir=$TMP/${SRCNAM}-${VERSION}/tmp $PKG
-#chroot $PKG
+# Prevent dkms from trying to rebuild an initrd
+sed -i 's/REMAKE_INITRD="yes"/REMAKE_INITRD="no"/' $PKG/usr/src/${SRCNAM}-${VERSION}/dkms.conf
+
+# Add the kernel module to the correct location
+sed -i 's|/updates|/kernel/drivers/gpu/drm/amd/amdgpu|' $PKG/usr/src/${SRCNAM}-${VERSION}/dkms.conf
+
+# Set up the source for dkms building
+mkdir -p $PKG/var/lib/dkms/${SRCNAM}/${VERSION}/source/
+ln -s /var/lib/dkms/${SRCNAM}/${VERSION}/source $PKG/usr/src/${SRCNAM}-${VERSION}
 
 # Check if dkms is installed
-#if [ ! -x /usr/sbin/dkms ]; then
-#  echo "Please install dkms from SBo"
-#  exit 1
-#fi
+if [ ! -x /usr/sbin/dkms ]; then
+  echo "Please install dkms from SBo"
+  exit 1
+fi
 
-# Let's build and install the module
-#dkms add $PKG/usr/src/${SRCNAM}-${VERSION}
-#dkms install -m ${SRCNAM} -v ${VERSION}
+# Let's build it
+mkdir -p $PKG/lib/modules/`uname -r`/kernel/drivers/gpu/drm/amd/amdgpu
+dkms install \
+  -m ${SRCNAM} \
+  -v ${VERSION} \
+  --sourcetree $PKG/usr/src \
+  --dkmstree $PKG/var/lib/dkms/${SRCNAM}/${VERSION} \
+  --installtree lib/modules
 
-# Let's unmount the overlay and delete the tmp folder
-#umount $PKG
-#rm -r $PKG/tmp
 
 # Create the slack-desc file
 cd $PKG
