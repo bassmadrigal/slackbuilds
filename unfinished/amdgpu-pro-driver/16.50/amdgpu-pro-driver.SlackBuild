@@ -65,13 +65,13 @@ set -eu
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM ${SRCNAM}-${VERSION}
+rm -rf $PRGNAM ${SRCNAM}-${SRCVER}
 # Extract main tarball
 tar -xvf $CWD/${SRCNAM}_${SRCVER}.tar.xz || tar -xvf $CWD/${SRCNAM}-${SRCVER}.tar.xz
 cd $PKG
 
 # Forloop to extract all the .deb archives from the main tarball
-for i in $TMP/${SRCNAM}-${VERSION}/*_{$DEBARCH,all}.deb; do
+for i in $TMP/${SRCNAM}-${SRCVER}/*_{$DEBARCH,all}.deb; do
   ar p $i data.tar.xz | unxz | tar xv
 done
 
@@ -83,7 +83,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# Strip binaries and libraries - this can be done with 'make install-strip'
+# Strip binaries and libraries
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
@@ -106,20 +106,20 @@ sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-
 
 # Gonna manually copy the firmware so dkms doesn't do it outside of the package
 mkdir $PKG/lib/firmware/
-mv $PKG/usr/src/${SRCNAM}-${VERSION}/firmware/{amdgpu,radeon} $PKG/lib/firmware
+mv $PKG/usr/src/${SRCNAM}-${SRCVER}/firmware/{amdgpu,radeon} $PKG/lib/firmware
 
 # Patch the crap outta the source so we can build the module
 for i in $CWD/patches/*.patch; do patch -p1 < $i; done
 
 # Prevent dkms from trying to rebuild an initrd
-sed -i 's/REMAKE_INITRD="yes"/REMAKE_INITRD="no"/' $PKG/usr/src/${SRCNAM}-${VERSION}/dkms.conf
+sed -i 's/REMAKE_INITRD="yes"/REMAKE_INITRD="no"/' $PKG/usr/src/${SRCNAM}-${SRCVER}/dkms.conf
 
 # Add the kernel module to the correct location
-sed -i 's|/updates|/kernel/drivers/gpu/drm/amd/amdgpu|' $PKG/usr/src/${SRCNAM}-${VERSION}/dkms.conf
+sed -i 's|/updates|/kernel/drivers/gpu/drm/amd/amdgpu|' $PKG/usr/src/${SRCNAM}-${SRCVER}/dkms.conf
 
 # Set up the source for dkms building
-mkdir -p $PKG/var/lib/dkms/${SRCNAM}/${VERSION}/source/
-ln -s /var/lib/dkms/${SRCNAM}/${VERSION}/source $PKG/usr/src/${SRCNAM}-${VERSION}
+mkdir -p $PKG/var/lib/dkms/${SRCNAM}/${SRCVER}/source/
+ln -s /var/lib/dkms/${SRCNAM}/${SRCVER}/source usr/src/${SRCNAM}-${SRCVER}
 
 # Check if dkms is installed
 if [ ! -x /usr/sbin/dkms ]; then
@@ -131,11 +131,10 @@ fi
 mkdir -p $PKG/lib/modules/`uname -r`/kernel/drivers/gpu/drm/amd/amdgpu
 dkms install \
   -m ${SRCNAM} \
-  -v ${VERSION} \
+  -v ${SRCVER} \
   --sourcetree $PKG/usr/src \
-  --dkmstree $PKG/var/lib/dkms/${SRCNAM}/${VERSION} \
+  --dkmstree $PKG/var/lib/dkms/${SRCNAM}/${SRCVER} \
   --installtree lib/modules
-
 
 # Create the slack-desc file
 cd $PKG
