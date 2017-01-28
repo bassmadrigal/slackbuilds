@@ -31,6 +31,7 @@ PRGNAM=amdgpu-pro-driver
 SRCNAM=amdgpu-pro
 VERSION=${VERSION:-16.60-379184}
 SRCVER=$(echo $VERSION | tr _ - )
+KERNEL=${KERNEL:-$(uname -r)}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_bass}
 
@@ -141,42 +142,66 @@ if [ "${BUILDDKMS:-no}" == "yes" ]; then
     --installtree lib/modules
 fi
 
-# Let's build the module, but make it optional since it doesn't currently work
-if [ "${BUILDMODULE:-no}" == "yes" ]; then
-  mkdir $PKG/lib/modules/$(uname -r)/extra
-  make -C /lib/modules/$(uname -r)/build M=$PKG/usr/src/${SRCNAM}-${SRCVER}
-  strip --strip-debug $PKG/usr/src/${SRCNAM}-${SRCVER}/amd/amdgpu/amdgpu.ko
-  cp $PKG/usr/src/${SRCNAM}-${SRCVER}/amd/amdgpu/amdgpu.ko $PKG/lib/modules/$(uname -r)/extra
+# Let's build the module (if you set it to yes)
+if [ "${BUILDMODULE:-yes}" == "yes" ]; then
+
+  # We need to edit the pre-build.sh -- First is to support Slackware's System.map
+  # Second is to comment out the source line of a file that doesn't exist
+  # Third is to comment out the copying of firmware since we already did it
+  # Then we run pre-build.sh
+  cd $PKG/usr/src/${SRCNAM}-${SRCVER}/
+  sed -i 's/System.map-$KERNELVER/System.map/' pre-build.sh
+  sed -i 's/source/#&/' pre-build.sh
+  sed -ie '/FW_DIR/,+3 s/^/#/' pre-build.sh
+  sh pre-build.sh
+
+  # Let's finally build the modules and get them moved
+  mkdir -p $PKG/lib/modules/${KERNEL}/extra
+  make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER}
+#  strip --strip-debug $PKG/usr/src/${SRCNAM}-${SRCVER}/{amd/{amdgpu/amdgpu.ko,amdkcl/amdkcl.ko},ttm/amdttm.ko}
+#  cp $PKG/usr/src/${SRCNAM}-${SRCVER}/{amd/{amdgpu/amdgpu.ko,amdkcl/amdkcl.ko},ttm/amdttm.ko} $PKG/lib/modules/$(uname -r)/extra
+  make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER} INSTALL_MOD_PATH=$PKG modules_install
+
+  # Now we need to ensure these modules are used over the stock modules
+  mkdir -p $PKG/etc/depmod.d
+  echo "search extra built-in" > $PKG/etc/depmod.d/amdgpu-pro.conf
+
 fi
 
-# We need to make sure the system loads AMD's libraries over Slackware's
+# We need to make sure the system loads the libraries from AMD over Slackware's
 # Let's try to keep the destruction to a minimum
 cd $PKG
 mkdir -p $PKG/install/
 cp /etc/ld.so.conf $PKG/etc/ld.so.conf.new
-cat << 'EOF' > $PKG/install/doinst.sh
+cat << EOF > doinst.sh
 config() {
-  NEW="$1"
-  OLD="$(dirname $NEW)/$(basename $NEW .new)"
+  NEW="\$1"
+  OLD="\$(dirname \$NEW)/\$(basename \$NEW .new)"
   # If there's no config file by that name, mv it over:
-  if [ ! -r $OLD ]; then
-    mv $NEW $OLD
-  elif [ "$(cat $OLD | md5sum)" = "$(cat $NEW | md5sum)" ]; then
+  if [ ! -r \$OLD ]; then
+    mv \$NEW \$OLD
+  elif [ "\$(cat \$OLD | md5sum)" = "\$(cat \$NEW | md5sum)" ]; then
     # toss the redundant copy
-    rm $NEW
+    rm \$NEW
   fi
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
+# If our line isn't already in there, add it
 if ! grep /opt/amdgpu-pro/lib/x86_64-linux-gnu/ /etc/ld.so.conf 1> /dev/null 2> /dev/null; then
   cp /etc/ld.so.conf etc/ld.so.conf.new
-  echo -e "/opt/amdgpu-pro/lib/x86_64-linux-gnu/\n$(cat etc/ld.so.conf.new)" > etc/ld.so.conf.new
+  echo -e "/opt/amdgpu-pro/lib/x86_64-linux-gnu/\n\$(cat etc/ld.so.conf.new)" > etc/ld.so.conf.new
 fi
 
 config etc/ld.so.conf.new
 
 if [ -x /sbin/ldconfig ]; then
   /sbin/ldconfig 2> /dev/null
+fi
+
+# Let's make sure the module dependency list is up-to-date
+if [ -x sbin/depmod ]; then
+  chroot . /sbin/depmod -a ${KERNEL} 1> /dev/null 2> /dev/null
 fi
 EOF
 
