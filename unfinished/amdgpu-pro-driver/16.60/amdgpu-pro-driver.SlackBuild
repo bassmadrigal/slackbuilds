@@ -34,6 +34,7 @@ SRCVER=$(echo $VERSION | tr _ - )
 KERNEL=${KERNEL:-$(uname -r)}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_bass}
+NUMJOBS=${NUMJOBS:-$(echo $(nproc) + 1 | bc)}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -202,7 +203,7 @@ if [ "${BUILDMODULE:-yes}" == "yes" ]; then
 
   # Let's finally build the modules and get them moved
   mkdir -p $PKG/lib/modules/${KERNEL}/extra
-  make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER}
+  make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER} -j ${NUMJOBS}
 #  strip --strip-debug $PKG/usr/src/${SRCNAM}-${SRCVER}/{amd/{amdgpu/amdgpu.ko,amdkcl/amdkcl.ko},ttm/amdttm.ko}
 #  cp $PKG/usr/src/${SRCNAM}-${SRCVER}/{amd/{amdgpu/amdgpu.ko,amdkcl/amdkcl.ko},ttm/amdttm.ko} $PKG/lib/modules/$(uname -r)/extra
   make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER} INSTALL_MOD_PATH=$PKG modules_install
