@@ -56,6 +56,10 @@ elif [ "$ARCH" = "x86_64" ]; then
   DEBARCH="amd64"
   DRIARCH="x86_64"
   LIBDIRSUFFIX="64"
+  # Determine if multilib is present
+  if [ -x /usr/sbin/convertpkg-compat32 ]; then
+    MULTILIB=${MULTILIB:-yes}
+  fi
 else
   echo "Package for $(uname -m) architecture is not available."
   exit 1
@@ -75,6 +79,47 @@ cd $PKG
 for i in $TMP/${SRCNAM}-${SRCVER}/*_{$DEBARCH,all}.deb; do
   ar p $i data.tar.xz | unxz | tar xv
 done
+
+# Now, let's get multilib set up if the system has it
+if [ "$MULTILIB" == "yes" ]; then
+
+  echo -e "\n\n\t=========================================================\n"
+  echo -e "\tDetected multilib -- adding 32bit support"
+  echo -e "\tIf you don't want multilib, override it with MULTILIB=no"
+  echo -e "\n\t=========================================================\n\n"
+  sleep 7
+
+  # Let's prep in a separate directory
+  mkdir -p $PKG/multilib
+  cd $PKG/multilib
+  for i in $TMP/${SRCNAM}-${SRCVER}/*_i386.deb; do
+    ar p $i data.tar.xz | unxz | tar xv
+  done
+
+  # Headers are NOARCH, so we can remove the ones provided in the 32bit packages
+  rm -r opt/amdgpu-pro/include/
+
+  # These files/folders are the same on 64bit
+  rm -r etc/{amd,xdg}/
+  rm -r lib
+  rm -r usr/share
+  rm -r opt/$SRCNAM/share
+
+  # Take care of 32bit binaries (Thanks to Alien for his convertpkg-compat32 script)
+  mkdir ./32
+  find opt/${SRCNAM}/bin -type f -exec mv {} ./32 \;
+  rm -rf opt/${SRCNAM}/bin/*
+  mv ./32 opt/${SRCNAM}/bin/
+
+  # We are not running a 32bit X, so hopefully these aren't needed
+  # (Plus, they'd conflict with the 64bit versions)
+  rm -r opt/${SRCNAM}/lib/xorg/
+
+  # Now, let's merge this with the main folder and delete the temporary directory
+  cd $PKG
+  cp -r multilib/* $PKG/.
+  rm -r multilib
+fi
 
 # Set proper permissions
 chown -R root:root .
