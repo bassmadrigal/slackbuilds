@@ -220,7 +220,7 @@ fi
 cd $PKG
 mkdir -p $PKG/install/
 cp /etc/ld.so.conf $PKG/etc/ld.so.conf.new
-cat << EOF > doinst.sh
+cat << EOF > $PKG/install/doinst.sh
 config() {
   NEW="\$1"
   OLD="\$(dirname \$NEW)/\$(basename \$NEW .new)"
