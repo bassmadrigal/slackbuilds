@@ -35,6 +35,7 @@ KERNEL=${KERNEL:-$(uname -r)}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_bass}
 NUMJOBS=${NUMJOBS:-$(echo $(nproc) + 1 | bc)}
+MULTILIB=${MULTILIB:-no}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
