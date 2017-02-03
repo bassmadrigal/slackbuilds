@@ -153,7 +153,7 @@ ln -s /usr/lib${LIBDIRSUFFIX}/xorg/modules/dri $PKG/usr/lib/x86_64-linux-gnu/dri
 sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-amdgpu-pro.conf
 
 # Copy the firmware to the correct location
-mkdir $PKG/lib/firmware/$KERNEL/
+mkdir -p $PKG/lib/firmware/$KERNEL/
 mv $PKG/usr/src/${SRCNAM}-${SRCVER}/firmware/{amdgpu,radeon} $PKG/lib/firmware/$KERNEL
 
 # Conditional to build the dkms driver. Pass BUILDDKMS=yes to build it.
