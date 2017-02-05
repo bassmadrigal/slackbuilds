@@ -117,6 +117,33 @@ if [ "$MULTILIB" == "yes" ]; then
   # (Plus, they'd conflict with the 64bit versions)
   rm -r opt/${SRCNAM}/lib/xorg/
 
+  # Let's add some scripts to /etc/profile.d/ to ensure the right paths are being used
+  mkdir -p $PKG/etc/profile.d/
+  cat << EOF > $PKG/etc/profile.d/amdgpu-pro-32.sh
+  #!/bin/sh
+  export LD_LIBRARY_PATH=/opt/${SRCNAM}/lib/i386-linux-gnu
+  export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/i386-linux-gnu/pkgconfig/
+  export PATH=${PATH}:/opt/${SRCNAM}/bin/32
+  export MANPATH=${MANPATH}:/opt/${SRCNAM}/share/man/
+  EOF
+
+  cat << EOF > $PKG/etc/profile.d/amdgpu-pro-32.csh
+  #!/bin/csh
+  setenv LD_LIBRARY_PATH /opt/${SRCNAM}/lib/i386-linux-gnu
+  setenv PKG_CONFIG_PATH ${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/i386-linux-gnu/pkgconfig/
+  setenv PATH ${PATH}:/opt/${SRCNAM}/bin/32
+  setenv MANPATH ${MANPATH}:/opt/${SRCNAM}/share/man/
+  EOF
+
+  # Add the the new scripts to 32dev.{sh,csh} to be sourced
+  if ! grep /etc/profile.d/amdgpu-pro-32.sh /etc/profile.d/32dev.sh 1> /dev/null 2> /dev/null; then
+    echo "source /etc/profile.d/amdgpu-pro-32.sh" > etc/32dev.sh.new
+  fi
+
+  if ! grep /etc/profile.d/amdgpu-pro-32.csh /etc/profile.d/32dev.csh 1> /dev/null 2> /dev/null; then
+    echo "source /etc/profile.d/amdgpu-pro-32.csh" > etc/32dev.csh.new
+  fi
+
   # Now, let's merge this with the main folder and delete the temporary directory
   cd $PKG
   cp -r multilib/* $PKG/.
@@ -181,6 +208,27 @@ if [ "${BUILDMODULE:-yes}" == "yes" ]; then
   echo "search extra built-in" > $PKG/etc/depmod.d/amdgpu-pro.conf
 
 fi
+
+# Let's add some scripts to /etc/profile.d/ to ensure the right paths are being used
+mkdir -p $PKG/etc/profile.d/
+cat << EOF > $PKG/etc/profile.d/amdgpu-pro.sh
+#!/bin/sh
+export LD_LIBRARY_PATH=/opt/${SRCNAM}/lib/${DRI_ARCH}-linux-gnu
+export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/${DRI_ARCH}-linux-gnu/pkgconfig/
+export PATH=${PATH}:/opt/${SRCNAM}/bin/
+export MANPATH=${MANPATH}:/opt/${SRCNAM}/share/man/
+EOF
+
+cat << EOF > $PKG/etc/profile.d/amdgpu-pro.csh
+#!/bin/csh
+setenv LD_LIBRARY_PATH /opt/${SRCNAM}/lib/${DRI_ARCH}-linux-gnu
+setenv PKG_CONFIG_PATH ${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/${DRI_ARCH}-linux-gnu/pkgconfig/
+setenv PATH ${PATH}:/opt/${SRCNAM}/bin/
+setenv MANPATH ${MANPATH}:/opt/${SRCNAM}/share/man/
+EOF
+
+# Let's give them the execute bit so they are loaded automatically
+chmod +x $PKG/etc/profile.d/amdgpu-pro.{sh,csh}
 
 # We need to make sure the system loads the libraries from AMD over Slackware's
 # Let's try to keep the destruction to a minimum
