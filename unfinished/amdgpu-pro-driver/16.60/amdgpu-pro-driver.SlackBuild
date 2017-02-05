@@ -137,11 +137,11 @@ if [ "$MULTILIB" == "yes" ]; then
 
   # Add the the new scripts to 32dev.{sh,csh} to be sourced
   if ! grep /etc/profile.d/amdgpu-pro-32.sh /etc/profile.d/32dev.sh 1> /dev/null 2> /dev/null; then
-    echo "source /etc/profile.d/amdgpu-pro-32.sh" > etc/32dev.sh.new
+    echo "source /etc/profile.d/amdgpu-pro-32.sh" >> etc/32dev.sh.new
   fi
 
   if ! grep /etc/profile.d/amdgpu-pro-32.csh /etc/profile.d/32dev.csh 1> /dev/null 2> /dev/null; then
-    echo "source /etc/profile.d/amdgpu-pro-32.csh" > etc/32dev.csh.new
+    echo "source /etc/profile.d/amdgpu-pro-32.csh" >> etc/32dev.csh.new
   fi
 
   # Now, let's merge this with the main folder and delete the temporary directory
