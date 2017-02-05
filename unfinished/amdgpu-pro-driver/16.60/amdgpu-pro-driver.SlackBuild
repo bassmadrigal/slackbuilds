@@ -156,39 +156,6 @@ sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-
 mkdir -p $PKG/lib/firmware/$KERNEL/
 mv $PKG/usr/src/${SRCNAM}-${SRCVER}/firmware/{amdgpu,radeon} $PKG/lib/firmware/$KERNEL
 
-# Conditional to build the dkms driver. Pass BUILDDKMS=yes to build it.
-# This doesn't currently build with 16.60. I'll have to dig through the patches
-if [ "${BUILDDKMS:-no}" == "yes" ]; then
-
-  # Patch the crap outta the source so we can build the module
-  for i in $CWD/patches/*.patch; do patch -p1 < $i; done
-
-  # Prevent dkms from trying to rebuild an initrd
-  sed -i 's/REMAKE_INITRD="yes"/REMAKE_INITRD="no"/' $PKG/usr/src/${SRCNAM}-${SRCVER}/dkms.conf
-
-  # Add the kernel module to the correct location
-  sed -i 's|/updates|/kernel/drivers/gpu/drm/amd/amdgpu|' $PKG/usr/src/${SRCNAM}-${SRCVER}/dkms.conf
-
-  # Set up the source for dkms building
-  mkdir -p $PKG/var/lib/dkms/${SRCNAM}/${SRCVER}/source/
-  ln -s /var/lib/dkms/${SRCNAM}/${SRCVER}/source usr/src/${SRCNAM}-${SRCVER}
-
-  # Check if dkms is installed
-  if [ ! -x /usr/sbin/dkms ]; then
-    echo "Please install dkms from SBo"
-    exit 1
-  fi
-
-  # Let's build it
-  mkdir -p $PKG/lib/modules/`uname -r`/kernel/drivers/gpu/drm/amd/amdgpu
-  dkms install \
-    -m ${SRCNAM} \
-    -v ${SRCVER} \
-    --sourcetree $PKG/usr/src \
-    --dkmstree $PKG/var/lib/dkms/${SRCNAM}/${SRCVER} \
-    --installtree lib/modules
-fi
-
 # Let's build the module (if you set it to yes)
 if [ "${BUILDMODULE:-yes}" == "yes" ]; then
 
