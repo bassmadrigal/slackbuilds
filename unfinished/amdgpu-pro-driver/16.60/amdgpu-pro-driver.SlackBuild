@@ -199,9 +199,8 @@ if [ "${BUILDMODULE:-yes}" == "yes" ]; then
   # Let's finally build the modules and get them moved
   mkdir -p $PKG/lib/modules/${KERNEL}/extra
   make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER} -j ${NUMJOBS}
-#  strip --strip-debug $PKG/usr/src/${SRCNAM}-${SRCVER}/{amd/{amdgpu/amdgpu.ko,amdkcl/amdkcl.ko},ttm/amdttm.ko}
-#  cp $PKG/usr/src/${SRCNAM}-${SRCVER}/{amd/{amdgpu/amdgpu.ko,amdkcl/amdkcl.ko},ttm/amdttm.ko} $PKG/lib/modules/$(uname -r)/extra
   make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER} INSTALL_MOD_PATH=$PKG modules_install
+  make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER} INSTALL_MOD_PATH=$PKG clean
 
   # Now we need to ensure these modules are used over the stock modules
   mkdir -p $PKG/etc/depmod.d
