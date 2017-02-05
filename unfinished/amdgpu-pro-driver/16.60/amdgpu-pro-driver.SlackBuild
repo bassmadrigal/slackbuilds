@@ -36,6 +36,7 @@ BUILD=${BUILD:-1}
 TAG=${TAG:-_bass}
 NUMJOBS=${NUMJOBS:-$(echo $(nproc) + 1 | bc)}
 MULTILIB=${MULTILIB:-no}
+MULTILIBCONF=""
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
@@ -118,31 +119,36 @@ if [ "$MULTILIB" == "yes" ]; then
   rm -r opt/${SRCNAM}/lib/xorg/
 
   # Let's add some scripts to /etc/profile.d/ to ensure the right paths are being used
-  mkdir -p $PKG/etc/profile.d/
-  cat << EOF > $PKG/etc/profile.d/amdgpu-pro-32.sh
+  mkdir -p etc/profile.d/
+  cat << EOF > etc/profile.d/amdgpu-pro-32.sh
 #!/bin/sh
 export LD_LIBRARY_PATH=/opt/${SRCNAM}/lib/i386-linux-gnu
-export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/i386-linux-gnu/pkgconfig/
-export PATH=${PATH}:/opt/${SRCNAM}/bin/32
-export MANPATH=${MANPATH}:/opt/${SRCNAM}/share/man/
+export PKG_CONFIG_PATH=\${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/i386-linux-gnu/pkgconfig/
+export PATH=\${PATH}:/opt/${SRCNAM}/bin/32
+export MANPATH=\${MANPATH}:/opt/${SRCNAM}/share/man/
 EOF
 
-  cat << EOF > $PKG/etc/profile.d/amdgpu-pro-32.csh
+  cat << EOF > etc/profile.d/amdgpu-pro-32.csh
 #!/bin/csh
 setenv LD_LIBRARY_PATH /opt/${SRCNAM}/lib/i386-linux-gnu
-setenv PKG_CONFIG_PATH ${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/i386-linux-gnu/pkgconfig/
-setenv PATH ${PATH}:/opt/${SRCNAM}/bin/32
-setenv MANPATH ${MANPATH}:/opt/${SRCNAM}/share/man/
+setenv PKG_CONFIG_PATH \${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/i386-linux-gnu/pkgconfig/
+setenv PATH \${PATH}:/opt/${SRCNAM}/bin/32
+setenv MANPATH \${MANPATH}:/opt/${SRCNAM}/share/man/
 EOF
 
   # Add the the new scripts to 32dev.{sh,csh} to be sourced
   if ! grep /etc/profile.d/amdgpu-pro-32.sh /etc/profile.d/32dev.sh 1> /dev/null 2> /dev/null; then
-    echo "source /etc/profile.d/amdgpu-pro-32.sh" >> etc/32dev.sh.new
+    cp /etc/profile.d/32dev.sh etc/profile.d/32dev.sh.new
+    echo "source /etc/profile.d/amdgpu-pro-32.sh" >> etc/profile.d/32dev.sh.new
   fi
 
   if ! grep /etc/profile.d/amdgpu-pro-32.csh /etc/profile.d/32dev.csh 1> /dev/null 2> /dev/null; then
-    echo "source /etc/profile.d/amdgpu-pro-32.csh" >> etc/32dev.csh.new
+    cp /etc/profile.d/32dev.csh etc/profile.d/32dev.csh.new
+    echo "source /etc/profile.d/amdgpu-pro-32.csh" >> etc/profile.d/32dev.csh.new
   fi
+
+  MULTILIBCONF="config etc/profile.d/32dev.csh.new
+config etc/profile.d/32dev.sh.new"
 
   # Now, let's merge this with the main folder and delete the temporary directory
   cd $PKG
@@ -254,6 +260,7 @@ if ! grep /opt/amdgpu-pro/lib/x86_64-linux-gnu/ /etc/ld.so.conf 1> /dev/null 2> 
 fi
 
 config etc/ld.so.conf.new
+$MULTILIBCONF
 
 if [ -x /sbin/ldconfig ]; then
   /sbin/ldconfig 2> /dev/null
