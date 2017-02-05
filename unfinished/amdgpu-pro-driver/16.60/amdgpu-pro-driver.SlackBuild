@@ -213,16 +213,16 @@ fi
 mkdir -p $PKG/etc/profile.d/
 cat << EOF > $PKG/etc/profile.d/amdgpu-pro.sh
 #!/bin/sh
-export LD_LIBRARY_PATH=/opt/${SRCNAM}/lib/${DRI_ARCH}-linux-gnu
-export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/${DRI_ARCH}-linux-gnu/pkgconfig/
+export LD_LIBRARY_PATH=/opt/${SRCNAM}/lib/${DRIARCH}-linux-gnu
+export PKG_CONFIG_PATH=${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/${DRIARCH}-linux-gnu/pkgconfig/
 export PATH=${PATH}:/opt/${SRCNAM}/bin/
 export MANPATH=${MANPATH}:/opt/${SRCNAM}/share/man/
 EOF
 
 cat << EOF > $PKG/etc/profile.d/amdgpu-pro.csh
 #!/bin/csh
-setenv LD_LIBRARY_PATH /opt/${SRCNAM}/lib/${DRI_ARCH}-linux-gnu
-setenv PKG_CONFIG_PATH ${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/${DRI_ARCH}-linux-gnu/pkgconfig/
+setenv LD_LIBRARY_PATH /opt/${SRCNAM}/lib/${DRIARCH}-linux-gnu
+setenv PKG_CONFIG_PATH ${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/${DRIRCH}-linux-gnu/pkgconfig/
 setenv PATH ${PATH}:/opt/${SRCNAM}/bin/
 setenv MANPATH ${MANPATH}:/opt/${SRCNAM}/share/man/
 EOF
