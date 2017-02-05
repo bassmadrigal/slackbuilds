@@ -203,7 +203,6 @@ config() {
 
 # If our line isn't already in there, add it
 if ! grep /opt/amdgpu-pro/lib/x86_64-linux-gnu/ /etc/ld.so.conf 1> /dev/null 2> /dev/null; then
-  cp /etc/ld.so.conf etc/ld.so.conf.new
   echo -e "/opt/amdgpu-pro/lib/x86_64-linux-gnu/\n\$(cat etc/ld.so.conf.new)" > etc/ld.so.conf.new
 fi
 
