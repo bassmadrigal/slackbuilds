@@ -1,0 +1,104 @@
+diff -Naur amdgpu-pro-16.60-379184-org/amd/amdgpu/amdgpu_connectors.c amdgpu-pro-16.60-379184/amd/amdgpu/amdgpu_connectors.c
+--- amdgpu-pro-16.60-379184-org/amd/amdgpu/amdgpu_connectors.c	2017-01-23 03:01:42.000000000 +0100
++++ amdgpu-pro-16.60-379184/amd/amdgpu/amdgpu_connectors.c	2017-01-27 20:56:32.294248166 +0100
+@@ -168,12 +168,20 @@
+ 		}
+ 
+ 		/* Any defined maximum tmds clock limit we must not exceed? */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++		if (connector->display_info.max_tmds_clock > 0) {
++#else
+ 		if (connector->max_tmds_clock > 0) {
++#endif
+ 			/* mode_clock is clock in kHz for mode to be modeset on this connector */
+ 			mode_clock = amdgpu_connector->pixelclock_for_modeset;
+ 
+ 			/* Maximum allowable input clock in kHz */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++			max_tmds_clock = connector->display_info.max_tmds_clock * 1000;
++#else
+ 			max_tmds_clock = connector->max_tmds_clock * 1000;
++#endif
+ 
+ 			DRM_DEBUG("%s: hdmi mode dotclock %d kHz, max tmds input clock %d kHz.\n",
+ 				  connector->name, mode_clock, max_tmds_clock);
+diff -Naur amdgpu-pro-16.60-379184-org/amd/amdgpu/amdgpu_ttm.c amdgpu-pro-16.60-379184/amd/amdgpu/amdgpu_ttm.c
+--- amdgpu-pro-16.60-379184-org/amd/amdgpu/amdgpu_ttm.c	2017-01-23 03:01:42.000000000 +0100
++++ amdgpu-pro-16.60-379184/amd/amdgpu/amdgpu_ttm.c	2017-01-27 21:00:07.018264043 +0100
+@@ -255,7 +255,11 @@
+ 
+ 	if (amdgpu_ttm_tt_get_usermm(bo->ttm))
+ 		return -EPERM;
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++	return drm_vma_node_verify_access(&abo->gem_base.vma_node, filp->private_data);
++#else
+ 	return drm_vma_node_verify_access(&abo->gem_base.vma_node, filp);
++#endif
+ }
+ 
+ static void amdgpu_move_null(struct ttm_buffer_object *bo,
+diff -Naur amdgpu-pro-16.60-379184-org/amd/display/amdgpu_dm/amdgpu_dm_types.c amdgpu-pro-16.60-379184/amd/display/amdgpu_dm/amdgpu_dm_types.c
+--- amdgpu-pro-16.60-379184-org/amd/display/amdgpu_dm/amdgpu_dm_types.c	2017-01-23 03:01:42.000000000 +0100
++++ amdgpu-pro-16.60-379184/amd/display/amdgpu_dm/amdgpu_dm_types.c	2017-01-27 21:06:23.169291856 +0100
+@@ -1695,7 +1695,11 @@
+ #else
+ static int dm_plane_helper_prepare_fb(
+ 	struct drm_plane *plane,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++	struct drm_plane_state *new_state)
++#else
+ 	const struct drm_plane_state *new_state)
++#endif
+ #endif /* LINUX_VERSION_CODE < KERNEL_VERSION(4, 4, 0) */
+ {
+ 	struct amdgpu_framebuffer *afb;
+@@ -1733,12 +1737,16 @@
+ 	!defined(OS_NAME_RHEL_7_3)
+ static void dm_plane_helper_cleanup_fb(
+ 	struct drm_plane *plane,
+-	struct drm_framebuffer *fb,
++	stru*ct drm_framebuffer *fb,
+ 	const struct drm_plane_state *old_state)
+ #else
+ static void dm_plane_helper_cleanup_fb(
+ 	struct drm_plane *plane,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++	struct drm_plane_state *old_state)
++#else
+ 	const struct drm_plane_state *old_state)
++#endif
+ #endif /* LINUX_VERSION_CODE < KERNEL_VERSION(4, 4, 0) */
+ {
+ 	struct amdgpu_bo *rbo;
+diff -Naur amdgpu-pro-16.60-379184-org/amd/display/dc/dm_services.h amdgpu-pro-16.60-379184/amd/display/dc/dm_services.h
+--- amdgpu-pro-16.60-379184-org/amd/display/dc/dm_services.h	2017-01-23 03:01:42.000000000 +0100
++++ amdgpu-pro-16.60-379184/amd/display/dc/dm_services.h	2017-01-27 20:45:32.420199375 +0100
+@@ -67,6 +67,14 @@
+ #endif
+ 
+ #define BREAK_TO_DEBUGGER() ASSERT(0)
++#else
++#define ASSERT(expr) WARN_ON(!(expr))
++#define BREAK_TO_DEBUGGER() ASSERT(0)
++#define ASSERT_CRITICAL(expr) do { \
++if (WARN_ON(!(expr))) { \
++; \
++} \
++} while (0)
+ 
+ #endif /* CONFIG_DEBUG_KERNEL || CONFIG_DEBUG_DRIVER */
+ 
+diff -Naur amdgpu-pro-16.60-379184-org/include/kcl/kcl_mm.h amdgpu-pro-16.60-379184/include/kcl/kcl_mm.h
+--- amdgpu-pro-16.60-379184-org/include/kcl/kcl_mm.h	2017-01-23 03:01:48.000000000 +0100
++++ amdgpu-pro-16.60-379184/include/kcl/kcl_mm.h	2017-01-27 20:50:05.247219548 +0100
+@@ -8,7 +8,9 @@
+                                      int write, int force, struct page **pages,
+                                      struct vm_area_struct **vmas)
+ {
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 9, 0)
++        return get_user_pages(start, nr_pages, write ? FOLL_WRITE : 0, pages, vmas);
++#elif LINUX_VERSION_CODE >= KERNEL_VERSION(4, 6, 0)
+         return get_user_pages(start, nr_pages, write, force, pages, vmas);
+ #else
+         return get_user_pages(tsk, mm, start, nr_pages,

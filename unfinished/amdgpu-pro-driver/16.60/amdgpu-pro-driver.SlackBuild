@@ -38,6 +38,12 @@ NUMJOBS=${NUMJOBS:-$(echo $(nproc) + 1 | bc)}
 MULTILIB=${MULTILIB:-no}
 MULTILIBCONF=""
 
+# Determine major and minor kernel version
+# (and patch version if we need it in the future)
+KERMAJ=$(echo $KERNEL | cut -d . -f1)
+KERMIN=$(echo $KERNEL | cut -d . -f2)
+KERPAT=$(echo $KERNEL | cut -d . -f3)
+
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i586 ;;
@@ -195,11 +201,23 @@ if [ "${BUILDMODULE:-yes}" == "yes" ]; then
   # We need to edit the pre-build.sh -- First is to support Slackware's System.map
   # Second is to comment out the source line of a file that doesn't exist
   # Third is to comment out the copying of firmware since we already did it
-  # Then we run pre-build.sh
   cd $PKG/usr/src/${SRCNAM}-${SRCVER}/
   sed -i 's/System.map-$KERNELVER/System.map/' pre-build.sh
   sed -i 's/source/#&/' pre-build.sh
   sed -ie '/FW_DIR/,+3 s/^/#/' pre-build.sh
+
+  # Let's patch everything since AMD has crappy kernel support
+  # Major thanks to davjohn for the patches
+  patch -p1 < $CWD/patches/kernel-4.4.patch
+  patch -p1 < $CWD/patches/kernel-4.9.patch
+
+  # If we're running a 4.10+ kernel, run this patch too
+  # Again, thanks to davjohn for the patch
+  if [ "$KERMAJ" -eq "4" ] && [ "$KERMIN" -ge "10" ]; then
+    patch -p1 < $CWD/patches/kernel-4.10.patch
+  fi
+
+  # Then we run pre-build.sh
   sh pre-build.sh
 
   # Let's finally build the modules and get them moved
