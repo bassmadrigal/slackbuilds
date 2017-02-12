@@ -31,9 +31,10 @@ PRGNAM=amdgpu-pro-driver
 SRCNAM=amdgpu-pro
 VERSION=${VERSION:-16.60-379184}
 SRCVER=$(echo $VERSION | tr _ - )
-KERNEL=${KERNEL:-$(uname -r)}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_bass}
+
+KERNEL=${KERNEL:-$(uname -r)}
 NUMJOBS=${NUMJOBS:-$(echo $(nproc) + 1 | bc)}
 MULTILIB=${MULTILIB:-no}
 MULTILIBCONF=""
@@ -195,13 +196,15 @@ sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-
 mkdir -p $PKG/lib/firmware/$KERNEL/
 mv $PKG/usr/src/${SRCNAM}-${SRCVER}/firmware/{amdgpu,radeon} $PKG/lib/firmware/$KERNEL
 
-# Let's build the module (if you set it to yes)
+# Let's build the module automatically (or you can override it by changing BUILDMODULE to no)
 if [ "${BUILDMODULE:-yes}" == "yes" ]; then
+
+  # Let's get into the source directory
+  cd $PKG/usr/src/${SRCNAM}-${SRCVER}/
 
   # We need to edit the pre-build.sh -- First is to support Slackware's System.map
   # Second is to comment out the source line of a file that doesn't exist
   # Third is to comment out the copying of firmware since we already did it
-  cd $PKG/usr/src/${SRCNAM}-${SRCVER}/
   sed -i 's/System.map-$KERNELVER/System.map/' pre-build.sh
   sed -i 's/source/#&/' pre-build.sh
   sed -ie '/FW_DIR/,+3 s/^/#/' pre-build.sh
@@ -226,7 +229,7 @@ if [ "${BUILDMODULE:-yes}" == "yes" ]; then
   make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER} INSTALL_MOD_PATH=$PKG modules_install
   make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${SRCNAM}-${SRCVER} INSTALL_MOD_PATH=$PKG clean
 
-  # Now we need to ensure these modules are used over the stock modules
+  # Now we need to ensure these modules are used over any stock modules
   mkdir -p $PKG/etc/depmod.d
   echo "search extra built-in" > $PKG/etc/depmod.d/amdgpu-pro.conf
 
