@@ -83,14 +83,16 @@ find -L . \
 # Compile the application and install it into the $PKG directory
 export CXXFLAGS="$SLKCFLAGS"
 make -C src/ client server cube2font
-make -C src/ DESTDIR=$PKG prefix=/usr system-install system-install-cube2font
+make -C src/ \
+  DESTDIR=$PKG \
+  prefix=/usr \
+  libexecdir=$PKG/usr/libexec \
+  mandir=$PKG/usr/man \
+  system-install system-install-cube2font
 
 # Strip binaries and libraries
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
-
-# Move man pages
-mv $PKG/usr/share/man/ $PKG/usr/
 
 # Compress man pages
 find $PKG/usr/man -type f -exec gzip -9 {} \;
