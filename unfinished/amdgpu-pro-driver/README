@@ -2,9 +2,9 @@ This contains relatively untested SlackBuilds for various versions of amdgpu-pro
 
 The SlackBuilds will take the downloaded Ubuntu package, extract the .deb
 packages and repackage them into a single Slackware package. Unfortunately, I
-don't have supported hardware yet, so I can't actually test them out. I also
-believe that there needs to be some compiling for dkms might need to actually
-compiled, but I haven't had time to do dig through everything.
+don't have supported hardware yet, so I can't actually test them out. 16.60
+seems to be fully functional with support for multilib (if detected, or manually
+forced using MULTILIB=yes). If there are any issues, let me know.
 
 See the release notes for more detailed information:
 http://support.amd.com/en-us/kb-articles/Pages/AMDGPU-PRO-Driver-for-Linux-Release-Notes.aspx
