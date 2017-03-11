@@ -25,7 +25,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=libzen
-VERSION=${VERSION:-0.4.30}
+VERSION=${VERSION:-0.4.34}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
 
@@ -72,7 +72,7 @@ find -L . \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 cd Project/GNU/Library
-./autogen
+./autogen.sh
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
