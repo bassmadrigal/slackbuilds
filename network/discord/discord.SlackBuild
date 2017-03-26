@@ -22,8 +22,7 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=discord-chat
-SRCNAM=discord
+PRGNAM=discord
 VERSION=${VERSION:-0.0.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
@@ -59,7 +58,7 @@ set -eu
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
-ar p $CWD/${SRCNAM}-${VERSION}.deb data.tar.xz | unxz | tar xv
+ar p $CWD/${PKGNAM}-${VERSION}.deb data.tar.xz | unxz | tar xv
 
 chown -R root:root .
 find -L . \
