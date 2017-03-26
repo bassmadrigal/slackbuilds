@@ -4,5 +4,7 @@ file-sharing websites. It presently supports Megaupload, Rapidshare, 2Shared,
 Storage.to, Uploaded.to, Uploading.com, Sendspace, Usershare, X7.to and some
 others.
 
-tesseract, js and PerlMagick are optional runtime dependecies for some sites.
-See the plowshare website for details.
+Per INSTALL, either rhino or sunspider (the latter is not available on SBo)
+are optional runtime dependencies. It is stated they are required for some
+sites. However, I have not come across any that didn't work. Let me know
+if it should be a required dependency.
