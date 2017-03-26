@@ -2,6 +2,7 @@
 
 # Copyright (c) 2007 Niki Kovacs <contact@kikinovak.net>
 # Copyright 2014 Ryan P.C. McQuen, WA, <ryanpcmcquen@member.fsf.org>
+# Copyright 2017 Jeremy Hansen <jebrhansen+SBo -at- gmail.com>
 #
 # Slackware build script for recode
 
@@ -9,7 +10,8 @@
 # Further small mods by Richard Hoyle <hoyle.richard@gmail.com>
 # Updating and testing for Slackware (including x86_64 and Multilib)
 # previously by Chris Abela <kristofru@gmail.com>
-# Now by Ryan P.C. McQuen
+# and Ryan P.C. McQuen
+# Now maintained by Jeremy Hansen
 
 # All rights reserved.
 #
