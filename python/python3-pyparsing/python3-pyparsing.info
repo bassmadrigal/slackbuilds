@@ -5,6 +5,6 @@ DOWNLOAD="http://downloads.sourceforge.net/project/pyparsing/pyparsing/pyparsing
 MD5SUM="034b935c55b7fcace3c8b5031392cd70"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
-REQUIRES=""
+REQUIRES="python3"
 MAINTAINER="Jeremy Hansen"
 EMAIL="jebrhansen+SBo@gmail.com"
