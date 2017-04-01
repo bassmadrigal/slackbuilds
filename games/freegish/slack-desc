@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+        |-----handy-ruler------------------------------------------------------|
+freegish: freegish (free version of Gish)
+freegish:
+freegish: This is a free version of the game Gish. Gish isn't your average hero.
+freegish: In fact, he's not your average anything...you see, Gish is a ball of
+freegish: tar. Gish suddenly finds himself in the subterranean sewers of Dross,
+freegish: a long forgotten city filled with twisting corridors, evil traps, and
+freegish: some of the most demented creatures imaginable.
+freegish:
+freegish: Life isn't easy when you're a 12 pound ball of tar...
+freegish:
+freegish: HOMEPAGE: https://github.com/freegish/freegish/
