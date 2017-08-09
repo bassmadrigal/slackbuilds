@@ -58,7 +58,7 @@ set -eu
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
-ar p $CWD/${PKGNAM}-${VERSION}.deb data.tar.xz | unxz | tar xv
+ar p $CWD/${PRGNAM}-${VERSION}.deb data.tar.xz | unxz | tar xv
 
 chown -R root:root .
 find -L . \
@@ -71,11 +71,15 @@ find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | gr
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cp $PKG/usr/share/doc/discord/copyright $PKG/usr/doc/$PRGNAM-$VERSION
+mv $PKG/usr/share/doc/discord/copyright $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+# Don't need these:
+rm -rf $PKG/usr/share/doc $PKG/usr/share/lintian
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
