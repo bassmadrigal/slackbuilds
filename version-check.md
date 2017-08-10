@@ -43,7 +43,7 @@ mediainfo - 0.7.93 - Outdated, newer versions unchecked
 pitivi - 0.95 - latest version for 14.2 (limited on gst version included in Slackware)
 
 == Network
-discord - 0.0.1 - latest version, checked 27JUL2017
+discord - 0.0.2 - latest version, checked 09AUG2017
 plowshare-modules - fc341f2 - outdated commit, newer commits unchecked
 plowshare - 2.1.6 - lateast commit, checked 27JUL2017
 sickrage - v2017.03.08_1 - Unable to checked due to DCMA takedown request, checked on 27JUL2017
