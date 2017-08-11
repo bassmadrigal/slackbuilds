@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for plowshare
+# Slackware build script for plowshare-modules
 
 # Copyright 2017 Jeremy Hansen <jebrhansen+SBo -at- gmail.com>
 # Copyright 2010 Mikhail Cuddy <mikhailcuddy@gmail.com>
