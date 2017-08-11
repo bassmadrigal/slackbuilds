@@ -33,7 +33,7 @@
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) libmediainfo - 0.7.93 - Outdated, newer versions unchecked  
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) libunittest - 9.3.4 - Outdated, newer version unchecked  
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) libzen - 0.4.34 - Outdated, newer version unchecked  
-![#000000](https://placehold.it/15/000000/000000?text=+) process-cpp - 3.1.0 - Incorrect version... should be 3.0.1  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) process-cpp - 3.1.0 - Latest version, checked 10AUG2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) properties-cpp - 0.0.1 - latest version, checked: 27JUL2017  
 ![#FF8800](https://placehold.it/15/FF00FF/000000?text=+) python3-matplotlib - 1.5.2 - Outdated, matching SBo python2 version, checked 27JUL2017  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) qutepart - 2.2.3 - latest version without switching to python3 and pyqt5  

@@ -1,5 +1,5 @@
 PRGNAM="process-cpp"
-VERSION="3.1.0"
+VERSION="3.0.1"
 HOMEPAGE="https://launchpad.net/process-cpp"
 DOWNLOAD="https://launchpad.net/ubuntu/+archive/primary/+files/process-cpp_3.0.1.orig.tar.gz"
 MD5SUM="95e187de74037b70b105679f85047c12"
