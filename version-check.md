@@ -29,9 +29,9 @@
 
 ## Libraries
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) dbus-cpp - 5.0.0 - latest version, checked: 27JUL2017  
-![#FF0000](https://placehold.it/15/FF0000/000000?text=+) gstreamer-editing-services - 1.6.2 - Outdated, newer versions unchecked  
+![#FF0000](https://placehold.it/15/FF0000/000000?text=+) gstreamer-editing-services - 1.6.2 - Outdated, matching SBo's gst version  
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) libmediainfo - 0.7.93 - Outdated, newer versions unchecked  
-![#FF0000](https://placehold.it/15/FF0000/000000?text=+) libunittest - 9.3.4 - Outdated, newer version unchecked  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libunittest - 9.3.5 - Latest version, checked 10AUG2017  
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) libzen - 0.4.34 - Outdated, newer version unchecked  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) process-cpp - 3.1.0 - Latest version, checked 10AUG2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) properties-cpp - 0.0.1 - latest version, checked: 27JUL2017  
@@ -51,7 +51,7 @@
 
 ## Network
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) discord - 0.0.2 - latest version, checked 09AUG2017  
-![#FF0000](https://placehold.it/15/FF0000/000000?text=+) plowshare-modules - fc341f2 - outdated commit, newer commits unchecked  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) plowshare-modules - f82e8e3 - Latest commit, checked 10AUG2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) plowshare - 2.1.6 - lateast commit, checked 27JUL2017  
 ![#000000](https://placehold.it/15/000000/000000?text=+) sickrage - v2017.03.08_1 - Unable to checked due to DCMA takedown request, checked on 27JUL2017  
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) transgui - 5.5.1 - Outdated, newer releases unchecked  
