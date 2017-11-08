@@ -11,7 +11,7 @@ meson:
 meson: Meson is an open source build system meant to be both extremely fast,
 meson: and, even more importantly, as user friendly as possible.
 meson:
-meson: The main design point of Meson is that every moment a developer spends 
+meson: The main design point of Meson is that every moment a developer spends
 meson: writing or debugging build definitions is a second wasted. So is every
 meson: second spent waiting for the build system to actually start compiling
 meson: code.
