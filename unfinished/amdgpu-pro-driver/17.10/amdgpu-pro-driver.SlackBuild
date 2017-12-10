@@ -188,8 +188,8 @@ rmdir -p --ignore-fail-on-non-empty $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/
 
 # Then we need to create a symlink because libglx.so has a hardcoded location
 # for amdgpu_dri.so that doesn't conform to Slackware standards. Thanks to AUR!
-mkdir -p $PKG/usr/lib/x86_64-linux-gnu
-ln -s /usr/lib${LIBDIRSUFFIX}/xorg/modules/dri $PKG/usr/lib/x86_64-linux-gnu/dri
+mkdir -p $PKG/usr/lib/$DRIARCH-linux-gnu
+ln -s /usr/lib${LIBDIRSUFFIX}/xorg/modules/dri $PKG/usr/lib/$DRIARCH-linux-gnu/dri
 
 # Make sure 10-amdgpu-pro.conf points to correct location based on ARCH
 sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-amdgpu-pro.conf
@@ -278,8 +278,8 @@ config() {
 }
 
 # If our line isn't already in there, add it
-if ! grep /opt/amdgpu-pro/lib/x86_64-linux-gnu/ /etc/ld.so.conf 1> /dev/null 2> /dev/null; then
-  echo -e "/opt/amdgpu-pro/lib/x86_64-linux-gnu/\n\$(cat etc/ld.so.conf.new)" > etc/ld.so.conf.new
+if ! grep /opt/amdgpu-pro/lib/$DRIARCH-linux-gnu/ /etc/ld.so.conf 1> /dev/null 2> /dev/null; then
+  echo -e "/opt/amdgpu-pro/lib/$DRIARCH-linux-gnu/\n\$(cat etc/ld.so.conf.new)" > etc/ld.so.conf.new
 fi
 
 config etc/ld.so.conf.new
