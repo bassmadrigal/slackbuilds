@@ -31,7 +31,7 @@ PRGNAM=amdgpu-pro-driver
 SRCNAM=amdgpu-pro
 VERSION=${VERSION:-17.10_401251}
 SRCVER=$(echo $VERSION | tr _ - )
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_bass}
 
 KERNEL=${KERNEL:-$(uname -r)}
@@ -211,16 +211,15 @@ if [ "${BUILDMODULE:-yes}" == "yes" ]; then
   sed -i 's/source/#&/' pre-build.sh
   sed -ie '/FW_DIR/,+3 s/^/#/' pre-build.sh
 
-  # Let's patch everything since AMD has crappy kernel support
-  # Major thanks to davjohn for the patches
-#  patch -p1 < $CWD/patches/kernel-4.4.patch
-#  patch -p1 < $CWD/patches/kernel-4.9.patch
+  # Let's patch the source to fix building on 4.9
+  # Thanks to AUR for the patch
+  patch -p1 < $CWD/kernel-4.9.patch
 
   # If we're running a 4.10+ kernel, run this patch too
   # Again, thanks to davjohn for the patch
-#  if [ "$KERMAJ" -eq "4" ] && [ "$KERMIN" -ge "10" ]; then
-#    patch -p1 < $CWD/patches/kernel-4.10.patch
-#  fi
+  #if [ "$KERMAJ" -eq "4" ] && [ "$KERMIN" -ge "10" ]; then
+  #  patch -p1 < $CWD/patches/kernel-4.10.patch
+  #fi
 
   # Then we run pre-build.sh
   sh pre-build.sh
