@@ -14,8 +14,9 @@
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) superkey-launch - 1.6.3 - latest version, checked: 27JUL2017  
 
 ## Development
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) cloc - 1.74 - latest version, checked: 13DEC2017
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) enki - 15.11.1 - latest version without switching to qt5  
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) meson - 0.42.0 - latest version, checked: 9SEP2017  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) meson - 0.44.0 - latest version, checked: 13DEC2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) python3-cycler - 0.10.0 - latest version (matches SBo's python2 cycler version), checked: 27JUL2017  
 
 ## Games
@@ -25,14 +26,14 @@
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) redeclipse - 1.5.8 - latest version, checked: 27JUL2017  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) simsu - 1.2.3 - latest release without switching to qt5  
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) stuntrally - 2.6 - latest release (almost 2 years of commits to look through), checked: 27JUL2017  
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) supertuxkart - 0.9.2 - latest version, checked: 27JUL2017  
+![#FF0000](https://placehold.it/15/FF0000/000000?text=+) supertuxkart - 0.9.2 - Out of date (0.9.3) -- working new version with new optional dependency, checked: 13DEC2017  
 
 ## Libraries
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) dbus-cpp - 5.0.0 - latest version, checked: 27JUL2017  
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) gstreamer-editing-services - 1.6.2 - Outdated, matching SBo's gst version  
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libmediainfo - 0.7.98 - Latest version, checked 9SEP2017  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libmediainfo - 0.7.10 - Latest version, checked 13DEC2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libunittest - 9.3.5 - Latest version, checked 10AUG2017  
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libzen - 0.4.36 - Latest version, checked 8SEP2017  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libzen - 0.4.37 - Latest version, checked 13DEC2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) process-cpp - 3.1.0 - Latest version, checked 10AUG2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) properties-cpp - 0.0.1 - latest version, checked: 27JUL2017  
 ![#FF8800](https://placehold.it/15/FF00FF/000000?text=+) python3-matplotlib - 1.5.2 - Outdated, matching SBo python2 version, checked 27JUL2017  
@@ -46,15 +47,15 @@
 ## Multimedia
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) filebot - 4.7.9 - latest version, checked 27JUL2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) gmtp - 1.3.10 - latest version, checked 27JUL2017  
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) mediainfo - 0.7.98 - Latest version, checked 9SEP2017  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) mediainfo - 0.7.10 - Latest version, checked 13DEC2017  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) pitivi - 0.95 - latest version for 14.2 (limited on gst version included in Slackware)  
 
 ## Network
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) discord - 0.0.2 - latest version, checked 09AUG2017  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) discord - 0.0.3 - latest version, checked 13DEC2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) plowshare-modules - 952eceb - Latest commit, checked 9SEP2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) plowshare - 2.1.7 - Lateast version, checked 9SEP2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) sickrage - v2017.06.05_1 - Latest release, checked on 9SEP2017  
-![#FF0000](https://placehold.it/15/FF0000/000000?text=+) transgui - 5.5.1 - Outdated, newer releases unchecked  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) transgui - 5.11.0 - Latest version, checked 13DEC2017  
 
 ## Python
 ![#FF8800](https://placehold.it/15/FF00FF/000000?text=+) gst-python3 - 1.6.2 - Outdated, matching SBo's python2 version, checked 27JUL2017  
