@@ -1,0 +1,6 @@
+This should be fully functional. Please let me know if there's any issues.
+
+The latest kernel I tested module compilation against is the 4.9.x kernel.
+It won't compile against the 4.14 kernel. I didn't test any in between.
+Patches to enable compiling on 4.14 are welcomed since it's beyond my
+knowledge to patch kernel drivers.

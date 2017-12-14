@@ -1,0 +1,324 @@
+#!/bin/sh
+
+# Slackware build script for amdgpu-pro-driver
+#
+# Copyright 2016  Jeremy Hansen <jebrhansen+SBo -at- gmail.com>
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# To download the driver without visiting their webpage and manually accepting
+# their terms, run the command below. This is only in this SlackBuild temporarily
+# to aid in testing.
+# wget --referer http://support.amd.com/en-us/kb-articles/Pages/AMDGPU-PRO-Driver-for-Linux-Release-Notes.aspx  -N https://www2.ati.com/drivers/linux/ubuntu/amdgpu-pro-17.40-492261.tar.xz
+
+PRGNAM=amdgpu-pro-driver
+SRCNAM=amdgpu-pro
+KERNAM=amdgpu
+VERSION=${VERSION:-17.40_492261}
+SRCVER=$(echo $VERSION | tr _ - )
+BUILD=${BUILD:-1}
+TAG=${TAG:-_bass}
+
+KERNEL=${KERNEL:-$(uname -r)}
+NUMJOBS=${NUMJOBS:-$(echo $(nproc) + 1 | bc)}
+MULTILIBCONF=""
+
+# Determine major and minor kernel version
+# (and patch version if we need it in the future)
+KERMAJ=$(echo $KERNEL | cut -d . -f1)
+KERMIN=$(echo $KERNEL | cut -d . -f2)
+KERPAT=$(echo $KERNEL | cut -d . -f3)
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i586" ]; then
+  DEBARCH="i386"
+  DRIARCH="i386"
+  LIBDIRSUFFIX=""
+  MULTILIB=${MULTILIB:-no}
+elif [ "$ARCH" = "x86_64" ]; then
+  DEBARCH="amd64"
+  DRIARCH="x86_64"
+  LIBDIRSUFFIX="64"
+  # Determine if multilib is present
+  if [ -x /usr/sbin/convertpkg-compat32 ]; then
+    MULTILIB=${MULTILIB:-yes}
+  else
+    MULTILIB=${MULTILIB:-no}
+  fi
+else
+  echo "Package for $(uname -m) architecture is not available."
+  exit 1
+fi
+
+set -eu
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $PRGNAM ${SRCNAM}-${SRCVER}
+# Extract main tarball
+tar -xvf $CWD/${SRCNAM}-${SRCVER}.tar.xz || tar -xvf $CWD/${SRCNAM}_${SRCVER}.tar.xz
+cd $PKG
+
+# Forloop to extract all the .deb archives from the main tarball
+for i in $TMP/${SRCNAM}-${SRCVER}/*_{$DEBARCH,all}.deb; do
+  ar p $i data.tar.xz | unxz | tar xv
+done
+
+# Now, let's get multilib set up if the system has it
+if [ "$MULTILIB" == "yes" ]; then
+
+  echo -e "\n\n\t=========================================================\n"
+  echo -e "\tDetected multilib -- adding 32bit support"
+  echo -e "\tIf you don't want multilib, override it with MULTILIB=no"
+  echo -e "\n\t=========================================================\n\n"
+  sleep 7
+
+  # Let's prep in a separate directory
+  mkdir -p $PKG/multilib
+  cd $PKG/multilib
+  for i in $TMP/${SRCNAM}-${SRCVER}/*_i386.deb; do
+    ar p $i data.tar.xz | unxz | tar xv
+  done
+
+  # Headers are NOARCH, so we can remove the ones provided in the 32bit packages
+  rm -r opt/amdgpu-pro/include/
+
+  # These files/folders are the same on 64bit
+  rm -r etc/{amd,xdg}/
+  rm -r lib
+  rm -r usr/share
+  rm -r opt/$SRCNAM/share
+
+  # Take care of 32bit binaries (Thanks to Alien for his convertpkg-compat32 script)
+  mkdir ./32
+  find opt/${SRCNAM}/bin -type f -exec mv {} ./32 \;
+  rm -rf opt/${SRCNAM}/bin/*
+  mv ./32 opt/${SRCNAM}/bin/
+
+  # We are not running a 32bit X, so hopefully these aren't needed
+  # (Plus, they'd conflict with the 64bit versions)
+  rm -r opt/${SRCNAM}/lib/xorg/
+
+  # Let's add some scripts to /etc/profile.d/ to ensure the right paths are being used
+  mkdir -p etc/profile.d/
+  cat << EOF > etc/profile.d/amdgpu-pro-32.sh
+#!/bin/sh
+export LD_LIBRARY_PATH=/opt/${SRCNAM}/lib/i386-linux-gnu
+export PKG_CONFIG_PATH=\${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/i386-linux-gnu/pkgconfig/
+export PATH=\${PATH}:/opt/${SRCNAM}/bin/32
+export MANPATH=\${MANPATH}:/opt/${SRCNAM}/share/man/
+EOF
+
+  cat << EOF > etc/profile.d/amdgpu-pro-32.csh
+#!/bin/csh
+setenv LD_LIBRARY_PATH /opt/${SRCNAM}/lib/i386-linux-gnu
+setenv PKG_CONFIG_PATH \${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/i386-linux-gnu/pkgconfig/
+setenv PATH \${PATH}:/opt/${SRCNAM}/bin/32
+setenv MANPATH \${MANPATH}:/opt/${SRCNAM}/share/man/
+EOF
+
+  # Add the the new scripts to 32dev.{sh,csh} to be sourced
+  if ! grep /etc/profile.d/amdgpu-pro-32.sh /etc/profile.d/32dev.sh 1> /dev/null 2> /dev/null; then
+    cp /etc/profile.d/32dev.sh etc/profile.d/32dev.sh.new
+    echo "source /etc/profile.d/amdgpu-pro-32.sh" >> etc/profile.d/32dev.sh.new
+  fi
+
+  if ! grep /etc/profile.d/amdgpu-pro-32.csh /etc/profile.d/32dev.csh 1> /dev/null 2> /dev/null; then
+    cp /etc/profile.d/32dev.csh etc/profile.d/32dev.csh.new
+    echo "source /etc/profile.d/amdgpu-pro-32.csh" >> etc/profile.d/32dev.csh.new
+  fi
+
+  MULTILIBCONF="config etc/profile.d/32dev.csh.new
+config etc/profile.d/32dev.sh.new"
+
+  # Now, let's merge this with the main folder and delete the temporary directory
+  cd $PKG
+  cp -r multilib/* $PKG/.
+  rm -r multilib
+fi
+
+# Set proper permissions
+chown -R root:root .
+find -L . \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+# Strip binaries and libraries
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+# Add the SlackBuild to the doc directory
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+# Move amdgpu_dri.so file to where X expects it and remove the empty directory
+mkdir -p $PKG/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri/
+mv $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/amdgpu_dri.so $PKG/usr/lib${LIBDIRSUFFIX}/xorg/modules/dri/
+rmdir -p --ignore-fail-on-non-empty $PKG/usr/lib/${DRIARCH}-linux-gnu/dri/
+
+# Then we need to create a symlink because libglx.so has a hardcoded location
+# for amdgpu_dri.so that doesn't conform to Slackware standards. Thanks to AUR!
+mkdir -p $PKG/usr/lib/$DRIARCH-linux-gnu
+ln -s /usr/lib${LIBDIRSUFFIX}/xorg/modules/dri $PKG/usr/lib/$DRIARCH-linux-gnu/dri
+
+# Make sure 10-amdgpu-pro.conf points to correct location based on ARCH
+sed -i "s|/usr/lib|/usr/lib${LIBDIRSUFFIX}|g" $PKG/usr/share/X11/xorg.conf.d/10-amdgpu-pro.conf
+
+# Copy the firmware to the correct location
+#mkdir -p $PKG/lib/firmware/$KERNEL/
+#mv $PKG/usr/src/${SRCNAM}-${SRCVER}/firmware/{amdgpu,radeon} $PKG/lib/firmware/$KERNEL
+
+# Let's build the module automatically (or you can override it by changing BUILDMODULE to no)
+if [ "${BUILDMODULE:-yes}" == "yes" ]; then
+
+  # Let's get into the source directory
+  cd $PKG/usr/src/${KERNAM}-${SRCVER}/
+
+  # We need to edit the pre-build.sh -- First is to support Slackware's System.map
+  # Second is to comment out the source line of a file that doesn't exist
+  # Third is to comment out the copying of firmware since we already did it
+  sed -i 's/System.map-$KERNELVER/System.map/' pre-build.sh
+  sed -i 's/source/#&/' pre-build.sh
+  sed -ie '/FW_DIR/,+3 s/^/#/' pre-build.sh
+
+  # Let's patch the source to fix building on 4.9
+  # Thanks to AUR for the patch
+  #patch -p1 < $CWD/kernel-4.9.patch
+
+  # If we're running a 4.10+ kernel, run this patch too
+  # Again, thanks to davjohn for the patch
+  #if [ "$KERMAJ" -eq "4" ] && [ "$KERMIN" -ge "10" ]; then
+  #  patch -p1 < $CWD/patches/kernel-4.10.patch
+  #fi
+
+  # Then we run pre-build.sh
+  sh pre-build.sh
+
+  # Let's finally build the modules and get them moved
+  mkdir -p $PKG/lib/modules/${KERNEL}/extra
+  make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${KERNAM}-${SRCVER} -j ${NUMJOBS}
+  make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${KERNAM}-${SRCVER} INSTALL_MOD_PATH=$PKG modules_install
+  make -C /lib/modules/${KERNEL}/build M=$PKG/usr/src/${KERNAM}-${SRCVER} INSTALL_MOD_PATH=$PKG clean
+
+  # Now we need to ensure these modules are used over any stock modules
+  mkdir -p $PKG/etc/depmod.d
+  echo "search extra built-in" > $PKG/etc/depmod.d/amdgpu-pro.conf
+
+fi
+
+# Let's add some scripts to /etc/profile.d/ to ensure the right paths are being used
+mkdir -p $PKG/etc/profile.d/
+cat << EOF > $PKG/etc/profile.d/amdgpu-pro.sh
+#!/bin/sh
+export LD_LIBRARY_PATH=/opt/${SRCNAM}/lib/${DRIARCH}-linux-gnu
+export PKG_CONFIG_PATH=\${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/${DRIARCH}-linux-gnu/pkgconfig/
+export PATH=\${PATH}:/opt/${SRCNAM}/bin/
+export MANPATH=\${MANPATH}:/opt/${SRCNAM}/share/man/
+EOF
+
+cat << EOF > $PKG/etc/profile.d/amdgpu-pro.csh
+#!/bin/csh
+setenv LD_LIBRARY_PATH /opt/${SRCNAM}/lib/${DRIARCH}-linux-gnu
+setenv PKG_CONFIG_PATH \${PKG_CONFIG_PATH}:/opt/${SRCNAM}/lib/${DRIARCH}-linux-gnu/pkgconfig/
+setenv PATH \${PATH}:/opt/${SRCNAM}/bin/
+setenv MANPATH \${MANPATH}:/opt/${SRCNAM}/share/man/
+EOF
+
+# Let's give them the execute bit so they are loaded automatically
+chmod +x $PKG/etc/profile.d/amdgpu-pro.{sh,csh}
+
+# We need to make sure the system loads the libraries from AMD over Slackware's
+# Let's try to keep the destruction to a minimum
+cd $PKG
+mkdir -p $PKG/install/
+cp /etc/ld.so.conf $PKG/etc/ld.so.conf.new
+cat << EOF > $PKG/install/doinst.sh
+config() {
+  NEW="\$1"
+  OLD="\$(dirname \$NEW)/\$(basename \$NEW .new)"
+  # If there's no config file by that name, mv it over:
+  if [ ! -r \$OLD ]; then
+    mv \$NEW \$OLD
+  elif [ "\$(cat \$OLD | md5sum)" = "\$(cat \$NEW | md5sum)" ]; then
+    # toss the redundant copy
+    rm \$NEW
+  fi
+  # Otherwise, we leave the .new copy for the admin to consider...
+}
+
+# If our line isn't already in there, add it
+if ! grep /opt/amdgpu-pro/lib/$DRIARCH-linux-gnu/ /etc/ld.so.conf 1> /dev/null 2> /dev/null; then
+  echo -e "/opt/amdgpu-pro/lib/$DRIARCH-linux-gnu/\n\$(cat etc/ld.so.conf.new)" > etc/ld.so.conf.new
+fi
+
+config etc/ld.so.conf.new
+$MULTILIBCONF
+
+if [ -x /sbin/ldconfig ]; then
+  /sbin/ldconfig 2> /dev/null
+fi
+
+# Let's make sure the module dependency list is up-to-date
+if [ -x /sbin/depmod ]; then
+  chroot . /sbin/depmod -a ${KERNEL} 1> /dev/null 2> /dev/null
+fi
+EOF
+
+# Create the slack-desc file
+cat << 'EOF' > $PKG/install/slack-desc
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+                 |-----handy-ruler------------------------------------------------------|
+amdgpu-pro-driver: amdgpu-pro-driver (Binary addon for amdgpu driver)
+amdgpu-pro-driver:
+amdgpu-pro-driver: This driver package is the Beta release of AMDGPU-Pro Stack for
+amdgpu-pro-driver: Radeon RX 480 Graphics, RX 470 Graphics, and Radeon RX 460 Graphics.
+amdgpu-pro-driver: This driver works in conjunction with the amdgpu kernel driver.
+amdgpu-pro-driver:
+amdgpu-pro-driver: The AMDGPU-Pro driver includes support for OpenGL, OpenCL, Vulkan,
+amdgpu-pro-driver: and VDPAU support.
+amdgpu-pro-driver:
+amdgpu-pro-driver: Homepage: http://support.amd.com/
+amdgpu-pro-driver:
+EOF
+
+# Let's fix the version so the slack-desc works
+VERSION=$(echo $VERSION | tr - _ )
+
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
