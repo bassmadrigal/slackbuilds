@@ -17,7 +17,6 @@
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) cloc - 1.74 - latest version, checked: 13DEC2017  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) enki - 15.11.1 - latest version without switching to qt5  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) meson - 0.44.0 - latest version, checked: 13DEC2017  
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) python3-cycler - 0.10.0 - latest version (matches SBo's python2 cycler version), checked: 27JUL2017  
 
 ## Games
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) freegish - 8795cd7 - latest commit (no releases), last checked: 27JUL2017  
@@ -30,14 +29,13 @@
 
 ## Libraries
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) dbus-cpp - 5.0.0 - latest version, checked: 27JUL2017  
-![#FF0000](https://placehold.it/15/FF0000/000000?text=+) gstreamer-editing-services - 1.6.2 - Outdated, matching SBo's gst version  
+![#FF00FF](https://placehold.it/15/FF00FF/000000?text=+) gstreamer-editing-services - 1.6.2 - Outdated, matching SBo's gst version  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libmediainfo - 0.7.10 - Latest version, checked 13DEC2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libopenglrecorder - 0.1.0 - latest version, checked: 14DEC2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libunittest - 9.3.5 - Latest version, checked 10AUG2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libzen - 0.4.37 - Latest version, checked 13DEC2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) process-cpp - 3.1.0 - Latest version, checked 10AUG2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) properties-cpp - 0.0.1 - latest version, checked: 27JUL2017  
-![#FF00FF](https://placehold.it/15/FF00FF/000000?text=+) python3-matplotlib - 1.5.2 - Outdated, matching SBo python2 version, checked 27JUL2017  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) qutepart - 2.2.3 - latest version without switching to python3 and pyqt5  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) shairplay - 0.1.1 - latest version, checked 27JUL2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) unittest-cpp - 2.0.0 - latest version, checked 27JUL2017  
