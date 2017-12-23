@@ -30,7 +30,7 @@
 ## Libraries
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) dbus-cpp - 5.0.0 - latest version, checked: 27JUL2017  
 ![#FF00FF](https://placehold.it/15/FF00FF/000000?text=+) gstreamer-editing-services - 1.6.2 - Outdated, matching SBo's gst version  
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libmediainfo - 0.7.10 - Latest version, checked 13DEC2017  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libmediainfo - 0.7.12 - Latest version, checked 23DEC2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libopenglrecorder - 0.1.0 - latest version, checked: 14DEC2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libunittest - 9.3.5 - Latest version, checked 10AUG2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) libzen - 0.4.37 - Latest version, checked 13DEC2017  
@@ -46,7 +46,7 @@
 ## Multimedia
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) filebot - 4.7.9 - latest version, checked 27JUL2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) gmtp - 1.3.11 - latest version, checked 21DEC2017  
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) mediainfo - 0.7.10 - Latest version, checked 13DEC2017  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) mediainfo - 0.7.12 - Latest version, checked 23DEC2017  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) pitivi - 0.95 - latest version for 14.2 (limited on gst version included in Slackware)  
 
 ## Network
