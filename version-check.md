@@ -8,7 +8,7 @@
 ![#000000](https://placehold.it/15/000000/000000?text=+) `Issue that needs addressing`  
 
 ## Audio
-![#FF0000](https://placehold.it/15/FF0000/000000?text=+) tagtool - 0.12.3 - latest version from sf.net (look into newer, forked versions)  
+![#FF8800](https://placehold.it/15/FF8800/000000?text=+) tagtool - 0.12.3 - latest version from sf.net (newer forked version requires gtk3)  
 
 ## Desktop
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) superkey-launch - 1.6.3 - latest version, checked: 27JUL2017  
