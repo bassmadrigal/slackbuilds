@@ -8,6 +8,7 @@ The Track Editor allows creating and modifying tracks.
 The game aims at a rally style of driving (like in Richard Burns
 Rally), with possible stunt elements (jumps, loops, pipes).
 
-NOTE: ogre needs to be built with its optional dependency of
-FreeImage for stuntrally to work. If you built ogre prior to
-installing FreeImage, you will need to rebuild ogre.
+Required Dependency
+
+ogre needs to be built with FreeImage for stuntrally to work.  If you
+built ogre prior to installing FreeImage, you will need to rebuild ogre.
