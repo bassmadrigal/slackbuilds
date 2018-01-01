@@ -24,7 +24,7 @@
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) glPortal - c3d5e47 - outdated commit -- newer commits unchecked  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) redeclipse - 1.6.0 - latest version, checked: 31DEC2017  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) simsu - 1.2.3 - latest release without switching to qt5  
-![#FF0000](https://placehold.it/15/FF0000/000000?text=+) stuntrally - 2.6 - latest release (almost 2 years of commits to look through), checked: 27JUL2017  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) stuntrally - 2.6 - latest release, checked: 31JUL2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) supertuxkart - 0.9.3 - latest version, checked: 14DEC2017  
 
 ## Libraries
