@@ -1,2 +1,4 @@
-One user had issues with this, but we couldn't determine the problem. However,
-this is an older version, so I'd recommend trying the 17.40 version.
+One user had issues with this, but we couldn't determine the problem.
+The newer version, 17.40, only works with Xorg 1.19, which is in
+-current. If you use 14.2 and have issues with this, please try the
+16.60 version.

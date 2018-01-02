@@ -1,3 +1,6 @@
+This requires Xorg 1.19, so it can only be used on -current right now.
+If you are using 14.2, please use 17.10 or lower.
+
 This should be fully functional. Please let me know if there's any issues.
 
 The latest kernel I tested module compilation against is the 4.9.x kernel.
