@@ -25,10 +25,10 @@ done
 check() {
   STATUS=stopped
   if [ -e $PIDFILE ]; then
-    if ps -p $(cat $PIDFILE); then
+    if ps -p $(cat $PIDFILE) > /dev/null; then
       STATUS=running
     else
-      STATUS=stopped
+      rm $PIDFILE
     fi
   fi
 }
