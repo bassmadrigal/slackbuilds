@@ -61,7 +61,7 @@
 ![#FF00FF](https://placehold.it/15/FF00FF/000000?text=+) gst-python3 - 1.6.2 - Outdated, matching SBo's python2 version, checked 27JUL2017  
 ![#FF00FF](https://placehold.it/15/FF00FF/000000?text=+) python3-PyYAML - 3.11 - Outdated, matching SBo's python2 version, checked 27JUL2017  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) python3-appdirs - 1.4.3 - latest version, checked 5JAN2018  
-![#FF00FF](https://placehold.it/15/FF00FF/000000?text=+) python3-pyparsing - 2.1.8 - Outdated, matching SBo's python2 version, checked 27JUL2017  
+![#FF00FF](https://placehold.it/15/FF00FF/000000?text=+) python3-pyparsing - 2.2.0 - Outdated, matching SBo's python2 version, checked 9DEC2018  
 
 ## System
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) lirc - 0.9.3a - Outdated, newer releases unchecked  
