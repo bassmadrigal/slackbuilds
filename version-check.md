@@ -51,7 +51,7 @@
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) pitivi - 0.95 - latest version for 14.2 (limited on gst version included in Slackware)  
 
 ## Network
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) discord - 0.0.4 - latest version, checked 31DEC2018  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) discord - 0.0.5 - latest version, checked 31DEC2018  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) openresolv - 3.9.0 - latest version, checked: 31DEC2018  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) plowshare-modules - e94a905 - Latest commit, checked 5JAN2018  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) plowshare - 2.1.7 - Lateast version, checked 5JAN2018  
