@@ -47,6 +47,7 @@
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) filebot - 4.7.9 - latest version, checked 5JAN2018  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) gmtp - 1.3.11 - latest version, checked 5JAN2018  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) mediainfo - 18.12 - Latest version, checked 31DEC2018  
+![#FF8800](https://placehold.it/15/FF8800/000000?text=+) picard - 1.4.2 - latest version without switching to qt5 
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) pitivi - 0.95 - latest version for 14.2 (limited on gst version included in Slackware)  
 
 ## Network
