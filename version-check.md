@@ -19,7 +19,7 @@
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) meson - 0.49.0 - latest version, checked: 31DEC2018  
 
 ## Games
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) freegish - 8795cd7 - latest commit (no releases), last checked: 5JAN2018  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) freegish - 8795cd7 - latest commit (no releases), last checked: 31DEC2018  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) gbrainy - 2.2.7 - latest version without switching to gtk3  
 ![#FF0000](https://placehold.it/15/FF0000/000000?text=+) glPortal - c3d5e47 - outdated commit -- newer commits unchecked  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) redeclipse - 1.6.0 - latest version, checked: 5JAN2018  
