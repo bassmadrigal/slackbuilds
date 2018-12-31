@@ -38,7 +38,6 @@
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) properties-cpp - 0.0.1 - latest version, checked: 31DEC2018  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) qutepart - 2.2.3 - latest version without switching to python3 and pyqt5  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) shairplay - 0.1.1 - latest version, checked 5JAN2018  
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) unittest-cpp - 2.0.0 - latest version, checked 5JAN2018  
 
 ## Misc
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) recode - 3.7_beta2 - latest non-forked version, checked 31DEC2018  
