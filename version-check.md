@@ -14,7 +14,7 @@
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) superkey-launch - 1.6.3 - latest version, checked: 31DEC2018  
 
 ## Development
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) cloc - 1.74 - latest version, checked: 5JAN2018  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) cloc - 1.80 - latest version, checked: 31DEC2018  
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) enki - 15.11.1 - latest version without switching to qt5  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) meson - 0.49.0 - latest version, checked: 31DEC2018  
 
