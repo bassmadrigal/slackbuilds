@@ -11,7 +11,7 @@
 ![#FF8800](https://placehold.it/15/FF8800/000000?text=+) tagtool - 0.12.3 - latest version from sf.net (newer forked version requires gtk3)  
 
 ## Desktop
-![#00FF00](https://placehold.it/15/00FF00/000000?text=+) superkey-launch - 1.6.3 - latest version, checked: 5JAN2018  
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) superkey-launch - 1.6.3 - latest version, checked: 31DEC2018  
 
 ## Development
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) cloc - 1.74 - latest version, checked: 5JAN2018  
@@ -58,6 +58,9 @@
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) plowshare - 2.1.7 - Lateast version, checked 5JAN2018  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) sickrage - v2017.12.19_1 - Latest release, checked on 5JAN2018  
 ![#00FF00](https://placehold.it/15/00FF00/000000?text=+) transgui - 5.16.0 - Latest version, checked 31DEC2018  
+
+## Perl
+![#00FF00](https://placehold.it/15/00FF00/000000?text=+) perl-parallel-forkmanager - 2.02 - Latest version, checked 31DEC2018
 
 ## Python
 ![#FF00FF](https://placehold.it/15/FF00FF/000000?text=+) gst-python3 - 1.6.2 - Outdated, matching SBo's python2 version, checked 27JUL2017  
