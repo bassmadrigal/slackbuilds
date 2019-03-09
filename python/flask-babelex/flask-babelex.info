@@ -1,0 +1,11 @@
+PRGNAM="flask-babelex"
+VERSION="d699306"
+HOMEPAGE="https://github.com/mrjoes/flask-babelex"
+DOWNLOAD="https://github.com/mrjoes/flask-babelex/archive/d699306/flask-babelex-d6993064993635ace5af98cbf5368dca593603db.tar.gz
+https://github.com/pallets/flask-sphinx-themes/archive/1.0.2/flask-sphinx-themes-1.0.2.tar.gz"
+MD5SUM=""
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Jeremy Hansen"
+EMAIL="jebrhansen+SBo@gmail.com"
