@@ -215,6 +215,10 @@ if [ "${BUILDMODULE:-yes}" == "yes" ]; then
   # Thanks to AUR for the patch
   patch -p1 < $CWD/kernel-4.9.patch
 
+  # Let's also use the 4.4 patch again, since it seems to be broken on 14.2
+  # Thanks to gaitos on the LQ Slackware forum
+  patch -p1 < $CWD/kernel-4.4.patch
+
   # If we're running a 4.10+ kernel, run this patch too
   # Again, thanks to davjohn for the patch
   #if [ "$KERMAJ" -eq "4" ] && [ "$KERMIN" -ge "10" ]; then
