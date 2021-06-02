@@ -1,0 +1,73 @@
+ffmpeg (Software to record, convert and stream audio and video)
+
+FFmpeg is a complete solution to record, convert and stream audio
+and video. It includes libavcodec, the leading audio/video codec
+library.
+
+The following packages are optional dependencies. They will be enabled
+if autodetected. If you want them disabled, pass:
+VAR=no .ffmpeg.SlackBuild
+
+OpenAL		(disable via OPENAL=no)
+celt		(disable via CELT=no)
+chromaprint	(disable via CHROMAPRINT=no)
+decklink-sdk	(disable via DECKLINK=no)
+flite		(disable via FLITE=no)
+frei0r		(disable via FREI0R=no)
+gsm		(disable via GSM=no)
+ladspa_sdk	(disable via LADSPA=no)
+lame		(disable via LAME=no)
+libass		(disable via ASS=no)
+libbluray	(disable via BLURAY=no)
+libbs2b		(disable via BS2B=no)
+libdc1394	(disable via DC1394=no)
+libebur128	(disable via EBUR128=no)
+libfdk-aac	(disable via FDK_AAC=no) (creates non-redistributable binary)
+libgme		(disable via GME=no)
+libilbc		(disable via ILBC=no)
+libmodplug	(disable via MODPLUG=no)
+libwebp		(disable via WEBP=no)
+netcdf		(disable via NETCDF=no)
+opencore-amr	(disable via OPENCORE=no)
+opencv-legacy	(disable via OPENCV=no)
+opus		(disable via OPUS=no)
+rtmpdump	(disable via RTMP=no)
+rubberband	(disable via RUBBERBAND=no)
+schroedinger	(disable via SCHROEDINGER=no)
+snappy		(disable via SNAPPY=no)
+speex		(disable via SPEEX=no)
+tesseract	(disable via TESSERACT=no)
+twolame		(disable via TWOLAME=no)
+vid.stab	(disable via VIDSTAB=no)
+x264		(disable via X264=no)
+x265		(disable via X265=no)
+xvidcore	(disable via XVID=no)
+zeromq		(disable via ZMQ=no)
+zvbi		(disable via ZVBI=no)
+libiec61883 & libavc1394 (disable via IEC61883=no)
+
+OPENSSL=yes|no (default: no), creates non-redistributable binary
+
+Additional optional (autodetected) dependencies are jack and SDL2. The
+latter is needed for building ffplay.
+
+Further, there are some more features with dependencies already available
+in core Slackware. These are enabled by default, but can be disabled similar
+to the other switches above:
+CACA=yes|no (default: yes)
+FONTCONFIG=yes|no (default: yes)
+FREETYPE=yes|no (default: yes)
+FRIBIDI=yes|no (default: yes)
+GNUTLS=yes|no (default: yes)
+JP2=yes|no (default: yes)
+LIBCDIO=yes|no (default: yes)
+LIBSSH=yes|no (default: yes)
+OPENGL=yes|no (default: yes)
+PULSEAUDIO=yes|no (default: yes)
+SAMBA=yes|no (default: yes)
+THEORA=yes|no (default: yes)
+V4L2=yes|no (default: yes)
+VORBIS=yes|no (default: yes)
+VPX=yes|no (default: yes)
+WAVPACK=yes|no (default: yes)
+X11GRAB=yes|no (default: yes)
