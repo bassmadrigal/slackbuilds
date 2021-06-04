@@ -17,9 +17,5 @@ pycanberra - enable sound notification when rendering completes
 GnomeDesktop - file thumbnails provided by GNOME's thumbnailers
 notify - enables visual notifications when rendering is complete
 
-NOTE: The following dependencies have optional python3 support, but
-python3 is required for pitivi. Please make sure they are compiled
-with python3. Check the READMEs of programs to see if you need to
-pass additional arguments to any of those dependencies.
-python-dateutil
-six
+NOTE: Please make sure python3-dateutil and python3-six are installed
+before building python3-matplotlib!
