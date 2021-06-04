@@ -70,8 +70,8 @@ cd $PRGNAM-$SRCVER
 
 # Extract submodules to correct locations
 rmdir data documentation/specification external/{gwen,vhacd-lib}
-tar xvf $CWD/glportal_data-$DATAVER.tar.gz
-mv glportal_data-$DATAVER/ data
+tar xvf $CWD/glportal-data-$DATAVER.tar.gz
+mv glportal-data-$DATAVER/ data
 tar xvf $CWD/specification-$SPECVER.tar.gz
 mv specification-$SPECVER/ documentation/specification
 tar xvf $CWD/cppgui-$CPPGUIVER.tar.gz
@@ -86,6 +86,9 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+cd source/engine
+patch -p2 < $CWD/bullet286.patch
+cd ../..
 mkdir -p build
 cd build
   cmake \
@@ -97,6 +100,9 @@ cd build
   make
   make install DESTDIR=$PKG
 cd ..
+
+# Remove bogus static lib
+rm $PKG/usr/bin/libVHACD_LIB.a
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
